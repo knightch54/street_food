@@ -1,5 +1,7 @@
 # README
 
+Street-Food App
+
 Ruby version 2.7.2
 
 To start you need to clone the repository on the local machine,
