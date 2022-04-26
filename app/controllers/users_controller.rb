@@ -1,12 +1,22 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
+  def_param_group :user do
+    param :user, Hash, :required => true, :action_aware => true do
+      param :name, String, "Name of the user"
+    end
+  end
+
   # GET /users or /users.json
+  api :GET, "/users", "List of users"
+  # param_group :user
   def index
     @users = User.all
   end
 
   # GET /users/1 or /users/1.json
+  api :GET, "/users/:id"
+  param :id, :number, desc: 'id of the requested user'
   def show
   end
 
@@ -20,6 +30,8 @@ class UsersController < ApplicationController
   end
 
   # POST /users or /users.json
+  api :POST, "/users", "Create an user"
+  param_group :user
   def create
     @user = User.new(user_params)
 
