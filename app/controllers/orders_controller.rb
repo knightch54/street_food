@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   param :chef_id, :number, desc: 'list of chefs order'
   def index
     # @orders = Order.all
-    @orders = @chef.orders
+    @orders = @chef.present? ? @chef.orders : Order.all
   end
 
   # GET /orders/1 or /orders/1.json
@@ -65,7 +65,6 @@ class OrdersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
-      # p params
       @order = Order.find(params[:id])
     end
 
@@ -75,11 +74,11 @@ class OrdersController < ApplicationController
     end
 
     def get_chef
-      @chef = Chef.find(params[:chef_id])
+      @chef = params[:chef_id].present? ? Chef.find(params[:chef_id]) : nil
     end
 
     def check_chef
-      raise ActiveRecord::RecordNotFound unless current_user.chef?
+      # raise ActiveRecord::RecordNotFound unless current_user.chef?
     end
 
 end

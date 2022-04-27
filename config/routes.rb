@@ -15,10 +15,14 @@ Rails.application.routes.draw do
 
   resources :users
   resources :orders
+  resources :managers
   # resources :chefs
-  resources :foods, except: %i[index]
+  # resources :foods, except: %i[index]
+  resources :foods
 
   get '/dishes', to: 'foods#index'
+
+  # resources :foods, :path => "dishes"
   # get '/orders', to: 'orders#index'
 
   resources :chefs do

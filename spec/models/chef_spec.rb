@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Chef, type: :model do
-  let(:chef) { FactoryBot.create :chef }
+  let(:chef) { FactoryBot.create :chef, {user: user} }
   let(:user) { FactoryBot.create :user }
 
   context 'test associations' do

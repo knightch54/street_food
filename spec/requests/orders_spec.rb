@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Orders", type: :request do
-  let(:user) { FactoryBot.create :user }
+  let(:chef) { FactoryBot.create :chef }
+  let(:user) { FactoryBot.create :user, {chef: chef} }
   let(:order_params) { FactoryBot.attributes_for(:order, user: user).stringify_keys }
   let(:order) { FactoryBot.create(:order, user: user) }
   # let(:orders) { FactoryBot.create_list(:order) }
@@ -42,8 +43,8 @@ RSpec.describe "Orders", type: :request do
     end
     
     it 'receives update for @order' do
-      put "/orders/#{order.id}", params: {order: order_params.merge({price: 10})}
-      # expect(order).to receive(:update).with(order_params.merge({price: 10}))
+      put "/orders/#{order.id}", params: {order: order_params.merge!({"price" => 10})}
+      # expect(order).to receive(:update).with(order_params.merge!({"price" => 10}))
       expect(response).to redirect_to(order_url(order))
     end
     

@@ -37,6 +37,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  # Apipie-rails is a DSL and Rails engine for documenting your RESTful API.
+  gem 'apipie-rails'
 end
 
 group :development do
@@ -48,8 +50,6 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  # Apipie-rails is a DSL and Rails engine for documenting your RESTful API.
-  gem 'apipie-rails'
 end
 
 group :test do
