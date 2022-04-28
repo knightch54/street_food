@@ -5,6 +5,14 @@ RSpec.describe "Orders", type: :request do
   let(:user) { FactoryBot.create :user, {chef: chef} }
   let(:order_params) { FactoryBot.attributes_for(:order, user: user).stringify_keys }
   let(:order) { FactoryBot.create(:order, user: user) }
+
+  let(:valid_attributes) {
+    {status: 0, price: 25.50, chef_id: 0, user_id: user.id}
+  }
+
+  let(:invalid_attributes) {
+    {status: 0, price: 0, chef_id: 0}
+  }
   # let(:orders) { FactoryBot.create_list(:order) }
 
   describe "GET /index" do
@@ -45,6 +53,7 @@ RSpec.describe "Orders", type: :request do
     it 'receives update for @order' do
       put "/orders/#{order.id}", params: {order: order_params.merge!({"price" => 10})}
       # expect(order).to receive(:update).with(order_params.merge!({"price" => 10}))
+      # expect(order).to receive(:update)
       expect(response).to redirect_to(order_url(order))
     end
     
@@ -53,6 +62,35 @@ RSpec.describe "Orders", type: :request do
     #   expect(response).to redirect_to order
     # end
     
+  end
+
+  describe "POST /create" do
+    context "with valid parameters" do
+      it "creates a new Order" do
+        expect {
+          post orders_url, params: {order: valid_attributes}
+        }.to change(Order, :count).by(1)
+      end
+
+      it "redirects to the created order" do
+        post orders_url, params: { order: valid_attributes }
+        expect(response).to redirect_to(order_url(Order.last))
+      end
+    end
+
+    context "with invalid parameters" do
+      it "does not create a new Order" do
+        expect {
+          post orders_url, params: { order: invalid_attributes }
+        }.to change(Order, :count).by(0)
+      end
+
+      it "renders a response with 422 status (i.e. to display the 'new' template)" do
+        post orders_url, params: { order: invalid_attributes }
+        # expect(response).to be_successful
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
   end
 
 end
