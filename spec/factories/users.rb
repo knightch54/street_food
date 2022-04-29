@@ -3,6 +3,7 @@ FactoryBot.define do
     # orders
     name { Faker::Name.unique.name }
     email { Faker::Internet.unique.email }
+    password { Faker::Internet.unique.password }
 
     # trait :orders do
     #   after(:create) do |user|
