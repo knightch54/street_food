@@ -4,8 +4,16 @@ class ApplicationController < ActionController::Base
   # before_action :authenticate_user!
   # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def disable_nav
-    @disable_nav = true
+  def disable_header
+    @disable_header = true
+  end
+
+  def disable_footer
+    @disable_footer = true
+  end
+
+  def disable_hero
+    @disable_hero = true
   end
 
   protected
@@ -16,5 +24,11 @@ class ApplicationController < ActionController::Base
   # end
   def record_not_found
     render plain: "404 Not Found", status: 404
+  end
+
+  def admin_only
+    unless current_user.admin?
+      redirect_to root_path, :alert => "Access denied."
+    end
   end
 end

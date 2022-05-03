@@ -63,22 +63,22 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:status, :price, :chef_id, :user_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params.require(:order).permit(:status, :price, :chef_id, :user_id)
+  end
 
-    def get_chef
-      @chef = params[:chef_id].present? ? Chef.find(params[:chef_id]) : nil
-    end
+  def get_chef
+    @chef = params[:chef_id].present? ? Chef.find(params[:chef_id]) : nil
+  end
 
-    def check_chef
-      # raise ActiveRecord::RecordNotFound unless current_user.chef?
-    end
+  def check_chef
+    # raise ActiveRecord::RecordNotFound unless current_user.chef?
+  end
 
 end

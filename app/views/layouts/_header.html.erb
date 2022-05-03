@@ -1,5 +1,55 @@
-<% if user_signed_in? %>
-  <%= current_user.email %> | <%= link_to "Log out", destroy_user_session_path, :method => :delete  %>
-<% else %>
-  <%= link_to "Log in", "/login"  %>
-<% end %>
+<header>
+  <div class="header py-1">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light px-0 py-0">
+        <a class="navbar-brand" href="<%= root_path %>">
+          <div class="logo">
+            <%= image_pack_tag('logo.png', class: "w-100 img-fluid") %>
+          </div>
+        </a>
+        <div class="open-time">
+          <h6><i class="icofont-clock-time"></i> Open Now</h6>
+          <span>8AM - 10PM</span>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav navbar-custom">
+            <li class="nav-item active">
+              <%= link_to "Home", root_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Menu", dishes_path, class: "nav-link" %>
+            </li>
+            <%# if current_user.admin? %>
+            <li class="nav-item dropdown">
+              <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Controllers List
+              </span>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="<%= orders_path %>">Orders</a>
+                <a class="dropdown-item" href="<%= foods_path %>">Foods</a>
+                <a class="dropdown-item" href="<%= users_path %>">Users</a>
+                <a class="dropdown-item" href="<%= managers_path %>">Managers</a>
+                <a class="dropdown-item" href="<%= chefs_path %>">Chefs</a>
+              </div>
+            </li>
+            <%# end %>
+            <li class="nav-item">
+              <%= link_to "Contact", root_path, class: "nav-link" %>
+            </li>
+
+            <li class="nav-item last-menu-bg">
+              <span class="nav-link">
+                <% if user_signed_in? %>
+                  <%= link_to "Profile (#{current_user.role})", current_user %> <span class="dashl">|</span> <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+                <% else %>
+                  <%= link_to "Log in", "/login#login"  %>
+                <% end %>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>

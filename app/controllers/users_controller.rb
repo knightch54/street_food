@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
-  def_param_group :user do
-    param :user, Hash, :required => true, :action_aware => true do
-      param :name, String, "Name of the user"
-    end
-  end
+  # def_param_group :user do
+  #   param :user, Hash, :required => true, :action_aware => true do
+  #     param :name, String, "Name of the user"
+  #   end
+  # end
 
   # GET /users or /users.json
   api :GET, "/users", "List of users"
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   api :GET, "/users/:id"
-  param :id, :number, desc: 'id of the requested user'
+  # param :id, :number, desc: 'id of the requested user'
   def show
   end
 
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   api :POST, "/users", "Create an user"
-  param_group :user
+  # param_group :user
   def create
     @user = User.new(user_params)
 
@@ -77,6 +77,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email)
+      params.require(:user).permit(:name, :email, :password)
     end
 end

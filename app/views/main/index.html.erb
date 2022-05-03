@@ -1,4 +1,17 @@
-<h2>Street Food App</h2>
-<p>
-  The time is now: <%= Time.now %>
-</p>
+<div class="food-menu-section" id="food-menu">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="menu-head text-center">
+          <h2>Our menu:</h2>
+          <p>Don't forget to try the additions to different dishes, it's so delicious!</p>
+        </div>
+      </div>
+    </div>
+    <div class="row food-box">
+      <% @foods.each do |food| %>
+        <%= render "foods/food_item", locals: {food: food} %>
+      <% end %>
+    </div>
+  </div>
+</div>
