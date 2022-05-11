@@ -8,9 +8,7 @@ class OrdersController < ApplicationController
   api :GET, '/chef/:chef_id/orders'
   param :chef_id, :number, desc: 'list of chefs order'
   def index
-    p "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     @orders = policy_scope(Order)
-    p @orders 
     authorize @orders
   end
 
