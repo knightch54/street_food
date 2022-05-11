@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   # resources :foods, except: %i[index]
   resources :foods
 
-  get '/dishes', to: 'foods#index'
+  get '/dishes', to: 'main#dishes'
+  get '/contact', to: 'main#contact'
 
   # resources :foods, :path => "dishes"
   # get '/orders', to: 'orders#index'

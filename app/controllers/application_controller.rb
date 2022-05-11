@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
-  # protect_from_forgery with: :exception
-  # before_action :configure_permitted_parameters, if: :devise_controller?
-  # before_action :authenticate_user!
-  # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  include Pundit
+  protect_from_forgery with: :exception
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def disable_header
     @disable_header = true
@@ -16,12 +16,20 @@ class ApplicationController < ActionController::Base
     @disable_hero = true
   end
 
+  private
+
+  def user_not_authorized
+    flash[:warning] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
+
   protected
 
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.permit(:sign_up)
-  #   devise_parameter_sanitizer.permit(:account_update)
-  # end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password)}
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password)}
+  end
+
   def record_not_found
     render plain: "404 Not Found", status: 404
   end
@@ -31,4 +39,5 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, :alert => "Access denied."
     end
   end
+
 end

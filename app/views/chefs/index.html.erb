@@ -1,27 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="special-section">
+  <div class="container">
+    <p id="notice"><%= notice %></p>
 
-<h1>Chefs</h1>
+    <h1>Chefs</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @chefs.each do |chef| %>
-      <tr>
-        <td><%= chef.name %></td>
-        <td><%= chef.email %></td>
-        <td><%= link_to 'Show', chef %></td>
-        <td><%= link_to 'Edit', edit_chef_path(chef) %></td>
-        <td><%= link_to 'Destroy', chef, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Chef', new_chef_path %>
+    <table class="table table-striped table-hover">
+      <thead class="table-orange">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col" colspan="3" class="text-center">Settings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @chefs.each do |chef| %>
+        <tr>
+          <td><%= chef.name %></td>
+          <td><%= chef.email %></td>
+          <td><%= link_to 'Show', chef %></td>
+          <td><%= link_to 'Edit', edit_chef_path(chef) %></td>
+          <td><%= link_to 'Destroy', chef, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to 'New chef', new_chef_path, class: "btn order-btn" %>
+  </div>
+</div>

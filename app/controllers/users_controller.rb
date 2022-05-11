@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # def_param_group :user do
@@ -12,27 +13,32 @@ class UsersController < ApplicationController
   # param_group :user
   def index
     @users = User.all
+    authorize @users
   end
 
   # GET /users/1 or /users/1.json
   api :GET, "/users/:id"
   # param :id, :number, desc: 'id of the requested user'
   def show
+    authorize @user
   end
 
   # GET /users/new
   def new
     @user = User.new
+    authorize @user
   end
 
   # GET /users/1/edit
   def edit
+    authorize @user
   end
 
   # POST /users or /users.json
   api :POST, "/users", "Create an user"
   # param_group :user
   def create
+    authorize User
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -48,6 +54,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    authorize @user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
@@ -61,6 +68,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    authorize @user
     @user.destroy
 
     respond_to do |format|

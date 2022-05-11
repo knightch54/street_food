@@ -283,6 +283,11 @@ button:hover {
   background: transparent;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+  background: none;
+  border-bottom: 1px solid #fff;
+}
+
 .last-menu-bg {
   background-color: #000;
   color: #fff;
