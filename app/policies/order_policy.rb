@@ -30,7 +30,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def create?
-    user.has_any_role? :admin, :manager, :chef
+    user.client?
   end
 
   def destroy?
