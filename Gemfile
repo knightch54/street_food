@@ -28,8 +28,17 @@ gem 'jbuilder', '~> 2.7'
 # Devise is a flexible authentication solution for Rails
 gem 'devise'
 
+# Pundit provides authorization system.
+gem 'pundit'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+
+# Create beautiful JavaScript charts with one line of Ruby
+gem "chartkick"
+
+# Apipie-rails is a DSL and Rails engine for documenting your RESTful API.
+gem 'apipie-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -37,8 +46,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
-  # Apipie-rails is a DSL and Rails engine for documenting your RESTful API.
-  gem 'apipie-rails'
 end
 
 group :development do

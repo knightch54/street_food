@@ -1,26 +1,32 @@
 class ChefsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_chef, only: %i[ show edit update destroy ]
 
   # GET /chefs or /chefs.json
   def index
     @chefs = Chef.all
+    authorize @chefs
   end
 
   # GET /chefs/1 or /chefs/1.json
   def show
+    authorize @chef
   end
 
   # GET /chefs/new
   def new
     @chef = Chef.new
+    authorize @chef
   end
 
   # GET /chefs/1/edit
   def edit
+    authorize @chef
   end
 
   # POST /chefs or /chefs.json
   def create
+    authorize Chef
     @chef = Chef.new(chef_params)
 
     respond_to do |format|
@@ -36,6 +42,7 @@ class ChefsController < ApplicationController
 
   # PATCH/PUT /chefs/1 or /chefs/1.json
   def update
+    authorize @chef
     respond_to do |format|
       if @chef.update(chef_params)
         format.html { redirect_to chef_url(@chef), notice: "Chef was successfully updated." }
@@ -49,6 +56,7 @@ class ChefsController < ApplicationController
 
   # DELETE /chefs/1 or /chefs/1.json
   def destroy
+    authorize @chef
     @chef.destroy
 
     respond_to do |format|

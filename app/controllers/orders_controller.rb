@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_order, only: %i[ show edit update destroy ]
   before_action :get_chef
   before_action :check_chef
@@ -7,25 +8,29 @@ class OrdersController < ApplicationController
   api :GET, '/chef/:chef_id/orders'
   param :chef_id, :number, desc: 'list of chefs order'
   def index
-    # @orders = Order.all
-    @orders = @chef.present? ? @chef.orders : Order.all
+    @orders = policy_scope(Order)
+    authorize @orders
   end
 
   # GET /orders/1 or /orders/1.json
   def show
+    authorize @order
   end
 
   # GET /orders/new
   def new
     @order = Order.new
+    authorize @order
   end
 
   # GET /orders/1/edit
   def edit
+    authorize @order
   end
 
   # POST /orders or /orders.json
   def create
+    authorize Order
     @order = Order.new(order_params)
 
     respond_to do |format|
@@ -41,6 +46,7 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+    authorize @order
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to order_url(@order), notice: "Order was successfully updated." }
@@ -54,6 +60,7 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
+    authorize @order
     @order.destroy
 
     respond_to do |format|

@@ -22,6 +22,7 @@ global.$ = global.jQuery = jQuery;
 window.$ = window.jQuery = jQuery;
 
 import "bootstrap"
+import "chartkick/chart.js"
 
 // Import the specific modules you may need (Modal, Alert, etc)
 import { Tooltip, Popover } from "bootstrap"

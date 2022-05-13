@@ -30,4 +30,8 @@ class User < ApplicationRecord
   def set_default_role
     self.role ||= :client
   end
+
+  def has_any_role?(*args)
+    args.any? { |r| self.role == r.to_s }
+  end
 end
