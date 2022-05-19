@@ -67,9 +67,9 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'afternoon-ocean-59850.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      :address              => 'mail.outlook.com',
+      :address              => 'smtp.office365.com',
       :port                 => 587,
-      :domain               => 'gmail.com',
+      :domain               => 'afternoon-ocean-59850.herokuapp.com',
       :user_name            => ENV["MAILER_EMAIL"],
       :password             => ENV["MAILER_PASSWORD"],
       :authentication       => 'login',
