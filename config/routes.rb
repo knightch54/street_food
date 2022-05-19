@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get '/dishes', to: 'main#dishes'
   get '/contact', to: 'main#contact'
+  get '/orders/open_order/:id', to: 'orders#open_order'
 
   # resources :foods, :path => "dishes"
   # get '/orders', to: 'orders#index'

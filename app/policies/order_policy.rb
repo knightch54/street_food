@@ -36,4 +36,8 @@ class OrderPolicy < ApplicationPolicy
   def destroy?
     user.has_any_role? :admin, :manager, :chef
   end
+
+  def open_order?
+    user.present? && user == order.user
+  end
 end

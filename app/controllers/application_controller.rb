@@ -16,6 +16,16 @@ class ApplicationController < ActionController::Base
     @disable_hero = true
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  rescue
+    render_404
+  end
+
+  def render_404
+    render file: File.join(Rails.root, 'public', "404.html"), status: :not_found
+  end
+
   private
 
   def user_not_authorized
