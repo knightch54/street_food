@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_order, only: %i[ show edit update destroy open_order ]
   before_action :get_chef
   before_action :check_chef
 
@@ -31,17 +31,18 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
     authorize Order
-    @order = Order.new(order_params)
+    @order = OrderCreationService.new(current_user).call(order_params)
 
     respond_to do |format|
-      if @order.save
-        format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
-        format.json { render :show, status: :created, location: @order }
+      if @order.present?
+        format.html { redirect_to controller: "orders", action: "open_order", id: @order.id, anchor: "open_order" }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.html { render_404 }
       end
     end
+  end
+
+  def open_order
   end
 
   # PATCH/PUT /orders/1 or /orders/1.json
@@ -77,7 +78,7 @@ class OrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_params
-    params.require(:order).permit(:status, :price, :chef_id, :user_id)
+    params.permit(:food_id)
   end
 
   def get_chef

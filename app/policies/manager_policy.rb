@@ -30,6 +30,6 @@ class ManagerPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin?
+    false
   end
 end

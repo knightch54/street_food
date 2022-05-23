@@ -16,11 +16,16 @@ class User < ApplicationRecord
   scope :last_registered, -> { where('created_at > ? and created_at < ?', Date.today - 1.months, Date.today) }
 
   after_initialize :set_default_role, :if => :new_record?
+  after_create :send_welcome_mail
 
   def minutes_waiting_for_order
     if orders.in_progress.present?
       ((Time.current - orders.in_progress.last.updated_at) / 1.minutes).to_i
     end
+  end
+
+  def send_welcome_mail
+    UserMailer.with(user: self).welcome_email.deliver_now
   end
 
   def chef?
