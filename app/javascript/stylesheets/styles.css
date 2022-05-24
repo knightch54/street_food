@@ -9,11 +9,17 @@
   -moz-box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   color: #0a0626;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
@@ -199,6 +205,11 @@ button:hover {
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.22);
+}
+
+.staff-theme .header {
+  position: static;
+  background: #000;
 }
 
 .logo {
@@ -455,6 +466,13 @@ button:hover {
 }
 
 /* HOME HERO SECTION CSS END */
+
+/* CONTENT CSS START */
+.content {
+  padding-top: 30px;
+  flex: 1 0 auto;
+}
+/* CONTENT CSS END */
 
 /* SPECIAL SECTION CSS START */
 .special-section {
@@ -2056,6 +2074,7 @@ button:hover {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
 .footer:before {

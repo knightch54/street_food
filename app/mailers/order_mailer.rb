@@ -1,4 +1,6 @@
 class OrderMailer < ApplicationMailer
+  layout 'mailer'
+  
   default from: 'noreply@street-food.com'
 
   def create_order

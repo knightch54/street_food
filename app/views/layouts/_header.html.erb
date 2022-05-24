@@ -14,36 +14,13 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav navbar-custom">
-            <li class="nav-item <%= menu_item_active?(root_path) %>">
-              <%= link_to "Home", root_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item <%= menu_item_active?(dishes_path) %>">
-              <%= link_to "Menu", dishes_path, class: "nav-link" %>
-            </li>
-            <% if user_signed_in? && current_user.has_any_role?(:admin, :manager, :chef) %>
-              <li class="nav-item dropdown">
-                <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Controllers List
-                </span>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item <%= menu_item_active?(orders_path) %>" href="<%= orders_path %>">Orders</a>
-                  <a class="dropdown-item <%= menu_item_active?(foods_path) %>" href="<%= foods_path %>">Foods</a>
-                  <a class="dropdown-item <%= menu_item_active?(users_path) %>" href="<%= users_path %>">Users</a>
-                  <a class="dropdown-item <%= menu_item_active?(managers_path) %>" href="<%= managers_path %>">Managers</a>
-                  <a class="dropdown-item <%= menu_item_active?(chefs_path) %>" href="<%= chefs_path %>">Chefs</a>
-                </div>
-              </li>
-            <% end %>
-            <li class="nav-item <%= menu_item_active?(contact_path) %>">
-              <%= link_to "Contact", contact_path, class: "nav-link" %>
-            </li>
-
+            <%= render partial: "layouts/menus/#{@user_logged_in_and_is_staff ? current_user.role + "_menu" : "menu"}" %>
             <li class="nav-item last-menu-bg">
               <span class="nav-link">
                 <% if user_signed_in? %>
                   <%= link_to "Profile (#{current_user.role})", current_user %> <span class="dashl">|</span> <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
                 <% else %>
-                  <%= link_to "Log in", "/login#login"  %>
+                  <%= link_to "Log in", new_user_session_path %>
                 <% end %>
               </span>
             </li>

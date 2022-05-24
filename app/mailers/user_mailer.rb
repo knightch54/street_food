@@ -1,4 +1,6 @@
 class UserMailer < ApplicationMailer
+  layout 'mailer'
+  
   default from: 'noreply@street-food.com'
   
   def welcome_email

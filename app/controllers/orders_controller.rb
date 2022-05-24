@@ -31,7 +31,12 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
     authorize Order
-    @order = OrderCreationService.new(current_user).call(order_params)
+
+    begin
+      @order = OrderCreationService.new(current_user).call(order_params)
+    rescue ActiveRecord::RecordNotFound
+      Rails.logger.error "Order can't be create. Food #{order_params[:food_id]} not found"
+    end
 
     respond_to do |format|
       if @order.present?

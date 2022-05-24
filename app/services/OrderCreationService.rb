@@ -5,18 +5,12 @@ class OrderCreationService
   end
   
   def call(order_attributes)
-    begin
-      food = get_food(order_attributes)
-      order = create_order(price: food.price)
-      create_food_order(order_id: order.id, food_id: food.id)
-    rescue ActiveRecord::RecordNotFound
-    # rescue => e
-      # p e
-      Rails.logger.error "Order can't be create. Food #{order_attributes[:food_id]} not found"
-      return false
-    end
-    # return order unless order.persisted?
+    food = get_food(order_attributes)
+    order = create_order(price: food.price)
+    create_food_order(order_id: order.id, food_id: food.id)
+
     send_email_notification
+    
     order
   end
   

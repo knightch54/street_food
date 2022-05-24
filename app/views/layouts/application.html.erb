@@ -12,11 +12,12 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application','data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
+  <body class="<%= @user_logged_in_and_is_staff || !current_page?(root_url) ? "staff-theme" : "client-theme" %>">
     <%= render 'layouts/header' unless @disable_header %>
-    <%= render 'layouts/hero' unless @disable_hero %>
-    <%= yield %>
+    <%= render 'layouts/hero' unless @disable_hero || !current_page?(root_url) || @user_logged_in_and_is_staff %>
+    <div class="content">
+      <%= yield %>
+    </div>
     <%= render 'layouts/footer' unless @disable_footer %>
   </body>
 </html>
