@@ -106,7 +106,7 @@
 }
 
 .modal .additional-ingredient-item {
-  margin-bottom: 1rem;
+  margin-bottom: 0px;
 }
 
 .modal .food-item {
@@ -140,6 +140,12 @@
   padding: 0 2px;
   min-width: 25px;
   text-align: center;
+  user-select: none;
+  -webkit-user-select:none;
+}
+
+.modal .qty .count:focus{
+  outline: none;
 }
 
 .modal .qty .plus {
@@ -191,6 +197,7 @@
 
 .modal .qty .title {
   padding-right: 15px;
+  font-size: 14px;
 }
 
 .modal .qty .hide {

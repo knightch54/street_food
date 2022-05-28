@@ -1,16 +1,35 @@
 <li class="nav-item <%= menu_item_active?(root_path) %>">
-  <%= link_to "Users", users_path, class: "nav-link" %>
+  <%= link_to users_path, class: "nav-link" do %>
+    <i class="icofont-users-alt-4"></i> Users
+  <% end %>
 </li>
-<li class="nav-item dropdown">
-  <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Controllers List
-  </span>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item <%= menu_item_active?(orders_path) %>" href="<%= orders_path %>">Orders</a>
-    <a class="dropdown-item <%= menu_item_active?(foods_path) %>" href="<%= foods_path %>">Foods</a>
-    <a class="dropdown-item <%= menu_item_active?(managers_path) %>" href="<%= managers_path %>">Managers</a>
-    <a class="dropdown-item <%= menu_item_active?(chefs_path) %>" href="<%= chefs_path %>">Chefs</a>
-    <a class="dropdown-item <%= menu_item_active?(ingredients_path) %>" href="<%= ingredients_path %>">Ingredients</a>
-    <a class="dropdown-item <%= menu_item_active?(food_ingredients_path) %>" href="<%= food_ingredients_path %>">Food ingredients</a>
-  </div>
+<li class="nav-item <%= menu_item_active?(orders_path) %>">
+  <%= link_to orders_path, class: "nav-link" do %>
+    <i class="icofont-list"></i> Orders
+  <% end %>
+</li>
+<li class="nav-item <%= menu_item_active?(foods_path) %>">
+  <%= link_to foods_path, class: "nav-link" do %>
+    <i class="icofont-fast-food"></i> Foods 
+  <% end %>
+</li>
+<li class="nav-item <%= menu_item_active?(managers_path) %>">
+  <%= link_to managers_path, class: "nav-link" do %>
+    <i class="icofont-businessman"></i> Managers
+  <% end %>
+</li>
+<li class="nav-item <%= menu_item_active?(chefs_path) %>">
+  <%= link_to chefs_path, class: "nav-link" do %>
+    <i class="icofont-chef"></i> Chefs
+  <% end %>
+</li>
+<li class="nav-item <%= menu_item_active?(ingredients_path) %>">
+  <%= link_to ingredients_path, class: "nav-link" do %>
+    <i class="icofont-pizza"></i> Ingredients
+  <% end %>
+</li>
+<li class="nav-item <%= menu_item_active?(food_ingredients_path) %>">
+  <%= link_to food_ingredients_path, class: "nav-link" do %>
+    <i class="icofont-sandwich"></i> Food ingredients
+  <% end %>
 </li>

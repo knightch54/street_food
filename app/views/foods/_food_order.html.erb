@@ -24,13 +24,13 @@
                     <span class="title"><%= ingredient.name %></span>
                     <span class="quantity">
                       <i class="minus hide icofont-minus-square"></i>
-                      <%= form.number_field :food, name: "food[additional_ingredients][#{ingredient.id}]", value: 0, class: "count hide" %>
+                      <%= form.number_field :food, name: "food[additional_ingredients][#{ingredient.id}]", value: 0, class: "count hide", readonly: "readonly" %>
                       <i class="plus icofont-plus-square"></i>
                     </span>
                   </div>
                 </div>
               <% end %>
-              <div class="form-group">
+              <div class="form-group mt-4">
                 <%= form.submit "Add to Order", class: "btn order-btn3" %>
               </div>
             <% end %>

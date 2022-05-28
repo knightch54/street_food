@@ -212,6 +212,30 @@ button:hover {
   background: #000;
 }
 
+.admin-role .header .navbar {
+  height: 95px;
+}
+
+.admin-role .header .navbar-custom {
+  width: 100%;
+}
+
+.admin-role .header .navbar-brand,
+.admin-role .header .open-time {
+  display: none;
+}
+
+.admin-role .header .navbar-custom .last-menu-bg {
+  margin-left: auto;
+}
+
+.header .dm-role {
+  font-size: 14px;
+  text-align: left !important;
+  color: #fff;
+  text-transform: capitalize;
+}
+
 .logo {
   width: 100px;
 }
@@ -336,7 +360,8 @@ button:hover {
 }
 
 .navbar-light .navbar-nav .dashl {
-  color: #fff;
+  margin: 0px 10px;
+  border-right: 1px solid #6c757d;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -811,6 +836,23 @@ button:hover {
   box-shadow: none;
   background: #fc802a;
   color: #fff;
+}
+
+.small-btn {
+  display: inline-block;
+  width: auto;
+}
+
+.small-btn[aria-expanded=true] {
+  color: red;
+}
+
+.adm-settings {
+  text-align: right;
+}
+
+.adm-settings a {
+  margin-left: 15px;
 }
 
 .food-img {

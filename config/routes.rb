@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   resources :foods do
     resources :food_ingredients
   end
-
+  
+  get 'profile', to: 'users#profile'
   get 'popular_food', to: 'foods#popular_food'
   get 'food_order/:id', to: 'foods#food_order', as: :food_order
   post 'add_food_to_cart/:id', to: 'orders#add_food_to_cart', as: :add_food_to_cart

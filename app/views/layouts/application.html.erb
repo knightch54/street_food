@@ -12,7 +12,7 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application','data-turbolinks-track': 'reload' %>
   </head>
-  <body class="<%= @user_logged_in_and_is_staff || !current_page?(root_url) ? "staff-theme" : "client-theme" %>">
+  <body class="<%= @user_logged_in_and_is_staff || !current_page?(root_url) ? "staff-theme" : "client-theme" %> <%= user_signed_in? ? current_user.role + "-role".dasherize : "" %>">
     <%= render 'layouts/header' unless @disable_header %>
     <%= render 'layouts/hero' unless @disable_hero || !current_page?(root_url) || @user_logged_in_and_is_staff %>
     <div class="content">

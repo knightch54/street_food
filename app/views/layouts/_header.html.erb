@@ -18,22 +18,36 @@
             <li class="nav-item last-menu-bg">
               <span class="nav-link">
                 <% if user_signed_in? %>
-                  <%= link_to "Profile (#{current_user.role})", current_user %> <span class="dashl">|</span> <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+                  <% if current_user.client? %>
+                    <%= link_to profile_path do %>
+                      <i class="icofont-pizza-slice"></i> <%= "Profile" %>
+                    <% end %>
+                  <% else %>
+                    <span class="dm-role"><%= current_user.role %></span>
+                  <% end %>
+                  <span class="dashl"></span>
+                  <%= link_to destroy_user_session_path, :method => :delete do %>
+                    Log out <i class="icofont-logout"></i>
+                  <% end %>
                 <% else %>
-                  <%= link_to "Log in", new_user_session_path %>
-                <% end %>
-              </span>
-            </li>
-            <li class="nav-item">
-              <span class="nav-link cart-link">
-                <%= link_to show_shopping_cart_path, remote: true, class: "" do %>
-                  <i class="icofont-food-cart"></i>
-                  <% if shopping_cart_contain_products? %>
-                    <%= shopping_cart_size %>
+                  <%= link_to new_user_session_path do %>
+                    Log in <i class="icofont-login"></i>
                   <% end %>
                 <% end %>
               </span>
             </li>
+            <% if user_signed_in? && current_user.client? %>
+              <li class="nav-item">
+                <span class="nav-link cart-link">
+                  <%= link_to show_shopping_cart_path, remote: true, class: "" do %>
+                    <i class="icofont-food-basket"></i>
+                    <% if shopping_cart_contain_products? %>
+                      <%= shopping_cart_size %>
+                    <% end %>
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>

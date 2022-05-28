@@ -113,10 +113,10 @@ class OrdersController < ApplicationController
     # raise ActiveRecord::RecordNotFound unless current_user.chef?
   end
 
-  def add_food_to_shopping_cart(order_data)
-    additional_ingredients_params = order_data.require(:food).permit(:additional_ingredients => {})
+  def add_food_to_shopping_cart(order_params)
+    additional_ingredients_params = order_params.require(:food).permit(:additional_ingredients => {})
     additional_ingredients = additional_ingredients_params.to_h[:additional_ingredients]
-    @shopping_cart[order_data[:id]] = additional_ingredients.select{|k,v|v.to_i > 0}
+    @shopping_cart[order_params[:id]] = additional_ingredients.select{|k,v|v.to_i > 0}
   end
 
 end

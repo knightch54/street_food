@@ -77,6 +77,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    @user_completed_orders = current_user.orders.where("status = 2")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
