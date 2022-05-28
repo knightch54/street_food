@@ -1,0 +1,36 @@
+$('body').append('<%= j render "food_order", food: @food %>');
+$('#foodOrder').modal('show'); 
+
+$('#foodOrder').on('hidden.bs.modal', function () {
+  $(this).remove();
+});
+
+$('#foodOrder').ready(function() {
+  $('.count').prop('disabled', true);
+  $('#foodOrder .plus').on('click', function(e) {
+    let ingredient_section = $(e.target).closest(".qty");
+    let count = ingredient_section.find('.count');
+    let minus = ingredient_section.find('.minus');
+    let quantity = parseInt(count.val());
+    count.val(++quantity);
+    if (quantity > 0) {
+      count.removeClass("hide");
+      minus.removeClass("hide");
+    } else {
+      count.addClass("hide");
+    }
+  });
+  $('#foodOrder .minus').on('click', function(e) {
+    let ingredient_section = $(e.target).closest(".qty");
+    let count = ingredient_section.find('.count');
+    let minus = ingredient_section.find('.minus');
+    let quantity = parseInt(count.val());
+    count.val(--quantity);
+    if (quantity == 0) {
+      count.addClass("hide");
+      minus.addClass("hide");
+    } else {
+      count.removeClass("hide");
+    }
+  });
+});

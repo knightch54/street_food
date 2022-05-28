@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_165739) do
+ActiveRecord::Schema.define(version: 2022_05_28_135546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,21 @@ ActiveRecord::Schema.define(version: 2022_05_18_165739) do
     t.integer "user_id"
   end
 
+  create_table "food_additional_ingredient_orders", force: :cascade do |t|
+    t.integer "food_order_id"
+    t.integer "ingredient_id"
+    t.integer "quantity", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "food_ingredients", force: :cascade do |t|
+    t.integer "ingredient_id"
+    t.integer "food_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "food_orders", force: :cascade do |t|
     t.integer "order_id"
     t.integer "user_id"
@@ -44,6 +59,15 @@ ActiveRecord::Schema.define(version: 2022_05_18_165739) do
     t.text "description"
     t.float "price"
     t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.float "price", default: 0.0
+    t.integer "amount", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

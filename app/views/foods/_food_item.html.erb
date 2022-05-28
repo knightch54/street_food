@@ -7,11 +7,9 @@
       </div>
       <div class="overlay text-left">
         <h4>Ingredients</h4>
-        <span>½ tbsp olive oil</span>
-        <span>1 onion, peeled and finely chopped</span>
-        <span>1 tsp mixed dried herbs</span>
-        <span>1 egg, beaten</span>
-        <span> 4 slices mature Cheddar (optional)</span>
+        <% food.ingredients.each do |ingredient| %>
+          <span><%= ingredient.name %></span>
+        <% end %>
       </div>
     </div>
     <div class="food-informaion">
@@ -26,8 +24,7 @@
           </div>
         </div>
         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-          <%# <a href="#" class="btn order-btn2">Order Now</a> %>
-          <%= link_to "Order Now", {controller: "orders", action: "create", food_id: food.id}, method: :post, class: "btn order-btn2" %>
+          <%= link_to "Order Now", food_order_path(food), remote: true, class: "btn order-btn2" %>
         </div>
       </div>
     </div>

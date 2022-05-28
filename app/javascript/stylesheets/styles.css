@@ -261,6 +261,10 @@ button:hover {
   transition: all 0.3s;
 }
 
+.navbar-custom .last-menu-bg:before {
+  display: none;
+}
+
 .navbar-custom li:last-child {
   margin: 0;
 }
@@ -338,6 +342,31 @@ button:hover {
 .navbar-light .navbar-nav .nav-link {
   color: #000;
   user-select: none;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link a {
+  padding: 0px 20px;
+  background-color: #000;
+  color: #fff!important;
+  border-radius: 50px;
+  height: 50px;
+  line-height: 48px;
+  display: block;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link .products_amount {
+  padding-left: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link a:hover {
+  color: #ff702a!important;
 }
 
 /* HEADER PART CSS END */
@@ -763,6 +792,27 @@ button:hover {
   color: #fff;
 }
 
+.order-btn3 {
+  color: #0a0626;
+  padding: 10px 20px;
+  background: #fbb042;
+  border-radius: 35px;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.order-btn3:hover {
+  background: #fc802a;
+  color: #fff;
+}
+
+.order-btn3:focus {
+  box-shadow: none;
+  background: #fc802a;
+  color: #fff;
+}
+
 .food-img {
   width: 200px;
 }
@@ -972,6 +1022,19 @@ button:hover {
   width: 100px;
   height: 100px;
   z-index: 1111;
+}
+
+#open_order small {
+  font-size: 16px;
+  font-style: italic;
+}
+
+#open_order .w-color {
+  color: #ff702a;
+}
+
+#open_order h3 {
+  font-weight: 600;
 }
 
 /* CUSTOMER SECTION CSS END */

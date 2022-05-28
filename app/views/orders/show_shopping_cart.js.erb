@@ -1,0 +1,6 @@
+$('body').append('<%= j render "show_shopping_cart" %>');
+$('#shoppingCart').modal('show'); 
+
+$('#shoppingCart').on('hidden.bs.modal', function () {
+  $(this).remove();
+});

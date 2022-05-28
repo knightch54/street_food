@@ -1,0 +1,42 @@
+<div class="modal fade" id="foodOrder" tabindex="-1" role="dialog" aria-labelledby="foodOrderTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body py-0">
+        <div class="d-flex main-content">
+          <div class="bg-image promo-img mr-3" style="background-image: url(<%= resolve_path_to_image('burger1.png') %>);">
+          </div>
+          <div class="content-text p-4">
+            <h3>
+              <%= @food.name %>
+            </h3>
+            <p>
+              <%= @food.description %>
+            </p>
+            <%= form_with url: add_food_to_cart_path(@food.id), local: false do |form| %>
+              <div class="form-group">
+                <p class="custom-note">
+                  <small>You can order additional ingredients to your order</small>
+                </p>
+              </div>
+              <% @food.ingredients.each do |ingredient| %>
+                <div class="form-group additional-ingredient-item">
+                  <div class="qty">
+                    <span class="title"><%= ingredient.name %></span>
+                    <span class="quantity">
+                      <i class="minus hide icofont-minus-square"></i>
+                      <%= form.number_field :food, name: "food[additional_ingredients][#{ingredient.id}]", value: 0, class: "count hide" %>
+                      <i class="plus icofont-plus-square"></i>
+                    </span>
+                  </div>
+                </div>
+              <% end %>
+              <div class="form-group">
+                <%= form.submit "Add to Order", class: "btn order-btn3" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

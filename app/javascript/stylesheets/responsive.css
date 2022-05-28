@@ -32,6 +32,10 @@
         font-size: 14px;
         text-align: left !important;
     }
+    .navbar-light .navbar-nav .nav-link.cart-link a {
+      height: 41px;
+      line-height: 39px;
+    }
     .last-menu-bg {
         padding: 2px 20px;
         /*margin-top: 15px !important;*/

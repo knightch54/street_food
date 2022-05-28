@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_staff
+  before_action :build_shopping_cart
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def disable_header
@@ -45,10 +46,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_staff
-    @user_logged_in_and_is_staff = current_user.present? && !current_user.client? 
+    @user_logged_in_and_is_staff = user_signed_in? && !current_user.client? 
   end
 
   private
+
+  def build_shopping_cart
+    @shopping_cart = session[:shopping_cart] ||= {}
+  end
 
   def user_not_authorized
     flash[:warning] = "You are not authorized to perform this action."

@@ -24,6 +24,16 @@
                 <% end %>
               </span>
             </li>
+            <li class="nav-item">
+              <span class="nav-link cart-link">
+                <%= link_to show_shopping_cart_path, remote: true, class: "" do %>
+                  <i class="icofont-food-cart"></i>
+                  <% if shopping_cart_contain_products? %>
+                    <%= shopping_cart_size %>
+                  <% end %>
+                <% end %>
+              </span>
+            </li>
           </ul>
         </div>
       </nav>
