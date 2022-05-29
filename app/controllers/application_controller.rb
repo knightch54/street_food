@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
     when "chef"
       orders_path
     when "manager"
-      foods_path
+      ingredients_path
     when "admin"
       users_path
     else

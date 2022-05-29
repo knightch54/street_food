@@ -18,7 +18,7 @@ class OrderCreationService
         end
       end
 
-      p "clear cart"
+      send_email_notification(order)
 
       return order
     end
@@ -55,7 +55,7 @@ class OrderCreationService
     })
   end
 
-  def send_email_notification
-    OrderMailer.with(user: @current_user).create_order.deliver_now
+  def send_email_notification(order)
+    OrderMailer.with(user: @current_user, order: order).create_order.deliver_now
   end
 end

@@ -9,7 +9,7 @@
             <strong class="w-color">We'll let you know as soon as it's ready!</strong><br>
             <small>Believe me, it will be delicious.</small>
           </h3>
-          <%= render partial: "order", locals: {order: @order} %>
+          <%= render partial: "order_detail", locals: {order: @order} %>
           <br>
           <div>
             <h4 class="mb-5">Total: <b><%= number_to_currency(@order.price, :unit => "$") %></b></h4>

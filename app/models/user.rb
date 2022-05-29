@@ -28,10 +28,6 @@ class User < ApplicationRecord
     UserMailer.with(user: self).welcome_email.deliver_now
   end
 
-  def chef?
-    chef.present?
-  end
-
   def set_default_role
     self.role ||= :client
   end

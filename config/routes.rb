@@ -11,24 +11,29 @@ Rails.application.routes.draw do
     sign_up: 'register' 
   }
 
-  # get 'orders/index'
-  # get 'orders/show'
-
+  get 'profile', to: 'users#profile'
   resources :users
+
+  post 'add_food_to_cart/:id', to: 'orders#add_food_to_cart', as: :add_food_to_cart
+  get 'show_shopping_cart', to: 'orders#show_shopping_cart'
+  post 'create_order', to: 'orders#create'
+  post 'orders/chef_update_order/:id', to: 'orders#chef_update_order', as: :orders_chef_update_order
+  get 'orders/completed_list', to: 'orders#completed_list', as: :orders_completed_list
   resources :orders
+
   resources :managers
-  # resources :chefs
-  # resources :foods, except: %i[index]
+
+  get 'popular_food', to: 'foods#popular_food'
+  get 'food_order/:id', to: 'foods#food_order', as: :food_order
   resources :foods
+
   resources :food_ingredients
+  
   resources :ingredients
 
   get '/dishes', to: 'main#dishes'
   get '/contact', to: 'main#contact'
   get '/orders/open_order/:id', to: 'orders#open_order'
-
-  # resources :foods, :path => "dishes"
-  # get '/orders', to: 'orders#index'
 
   resources :chefs do
     resources :orders
@@ -37,13 +42,6 @@ Rails.application.routes.draw do
   resources :foods do
     resources :food_ingredients
   end
-  
-  get 'profile', to: 'users#profile'
-  get 'popular_food', to: 'foods#popular_food'
-  get 'food_order/:id', to: 'foods#food_order', as: :food_order
-  post 'add_food_to_cart/:id', to: 'orders#add_food_to_cart', as: :add_food_to_cart
-  get 'show_shopping_cart', to: 'orders#show_shopping_cart'
-  post 'create_order', to: 'orders#create'
   
   root 'main#index'
 end

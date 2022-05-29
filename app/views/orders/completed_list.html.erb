@@ -1,0 +1,40 @@
+<div class="special-section">
+  <div class="container">
+    <p id="notice"><%= notice %></p>
+    <h1>List of completed orders</h1>
+    <table class="table table-striped table-hover">
+      <thead class="table-orange">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Status</th>
+          <th scope="col">Price</th>
+          <th scope="col" class="text-end">Completed date</th>
+        </tr>
+      </thead>
+      <% @orders.each do |order| %>
+        <tbody>
+          <tr>
+            <td><%= order.id %></td>
+            <td>
+              <% case order.status 
+              when "waiting" %>
+                <i class="icofont-chef"></i>
+              <% when "in_progress" %>
+                <i class="icofont-wall-clock"></i>
+              <% else %>
+                <i class="icofont-check-circled"></i>
+              <% end %>
+              <%= order.status.titleize %>
+            </td>
+            <td><%= number_to_currency(order.price, :unit => "$") %></td>
+            <td class="text-end">
+              <%= order.created_at.strftime("%d/%m/%Y - %H:%M")%>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+

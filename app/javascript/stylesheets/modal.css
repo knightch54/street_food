@@ -106,7 +106,21 @@
 }
 
 .modal .additional-ingredient-item {
-  margin-bottom: 0px;
+  margin-bottom: 2px;
+  background: #e9ecef;
+  padding: 0px 10px;
+  border-radius: 7px;
+}
+
+.modal .order-title {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.modal .ai-small-tip {
+  font-size: 10px;
+  padding-left: 10px;
 }
 
 .modal .food-item {
@@ -128,7 +142,18 @@
 
 /* plus/minus counter */
 
-.modal .qty {}
+.modal .qty {
+  display: flex;
+}
+
+.modal .quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-end;
+  margin-left: auto;
+}
 
 .modal .qty .count {
   color: #000;
@@ -142,10 +167,18 @@
   text-align: center;
   user-select: none;
   -webkit-user-select:none;
+  -moz-appearance:textfield;
+  background: transparent;
 }
 
 .modal .qty .count:focus{
   outline: none;
+}
+
+.modal .qty .count::-webkit-outer-spin-button,
+.modal .qty .count::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .modal .qty .plus {
@@ -198,6 +231,9 @@
 .modal .qty .title {
   padding-right: 15px;
   font-size: 14px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .modal .qty .hide {
@@ -212,5 +248,16 @@
   align-content: stretch;
   align-items: center;
   min-height: 250px;
+}
+
+.modal .ingredient-name {
+  display: flex;
+  flex-direction: column;
+}
+.modal .ingredient-name .ing-tip-small {
+  font-size: 11px;
+  line-height: 11px;
+  color: #777;
+  text-align: left;
 }
 

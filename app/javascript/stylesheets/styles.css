@@ -207,25 +207,25 @@ button:hover {
   background: rgba(0, 0, 0, 0.22);
 }
 
-.staff-theme .header {
+body:not(.home-page) .header {
   position: static;
   background: #000;
 }
 
-.admin-role .header .navbar {
+.staff-theme .header .navbar {
   height: 95px;
 }
 
-.admin-role .header .navbar-custom {
+.staff-theme .header .navbar-custom {
   width: 100%;
 }
 
-.admin-role .header .navbar-brand,
-.admin-role .header .open-time {
+.staff-theme .header .navbar-brand,
+.staff-theme .header .open-time {
   display: none;
 }
 
-.admin-role .header .navbar-custom .last-menu-bg {
+.staff-theme .header .navbar-custom .last-menu-bg {
   margin-left: auto;
 }
 
@@ -567,6 +567,10 @@ button:hover {
 
 .special-content p span {
   color: #ff702a;
+}
+
+.special-section table td {
+  vertical-align: middle;
 }
 
 .donut-icon {
@@ -2019,6 +2023,10 @@ button:hover {
   -webkit-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
+}
+
+.form textarea.form-control {
+  min-height: 150px;
 }
 
 

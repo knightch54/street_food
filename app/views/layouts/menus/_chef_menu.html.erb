@@ -1,3 +1,10 @@
-<li class="nav-item <%= menu_item_active?(root_path) %>">
-  <%= link_to "My Orders", orders_path, class: "nav-link" %>
+<li class="nav-item <%= menu_item_active?(orders_path) %>">
+  <%= link_to orders_path, class: "nav-link" do %>
+    <i class="icofont-list"></i> Today Orders
+  <% end %>
+</li>
+<li class="nav-item <%= menu_item_active?(orders_completed_list_path) %>">
+  <%= link_to orders_completed_list_path, class: "nav-link" do %>
+    <i class="icofont-restaurant-menu"></i> Completed Orders
+  <% end %>
 </li>

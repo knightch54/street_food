@@ -1,0 +1,51 @@
+<% if @orders.any? %>
+  <table class="table table-striped table-hover">
+    <thead class="table-orange">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Status</th>
+        <th scope="col">Price</th>
+        <th scope="col" colspan="3" class="text-center">Settings</th>
+      </tr>
+    </thead>
+    <% @orders.each do |order| %>
+      <tbody>
+        <tr>
+          <td><%= order.id %></td>
+          <td>
+            <% case order.status 
+            when "waiting" %>
+              <i class="icofont-chef"></i>
+            <% when "in_progress" %>
+              <i class="icofont-wall-clock"></i>
+            <% else %>
+              <i class="icofont-check-circled"></i>
+            <% end %>
+            <%= order.status.titleize %>
+          </td>
+          <td><%= number_to_currency(order.price, :unit => "$") %></td>
+          <td class="text-center">
+            <% if order.waiting? %>
+              <% if order.enough_ingredients? %>
+                <%= link_to orders_chef_update_order_path(order), class: "btn order-btn", method: :post do %>
+                  <i class="icofont-bbq"></i> Take order
+                <% end %>
+              <% else %>
+                <p>Not enough ingredients for cooking, tell the manager that cooking is not possible!</p>
+                <%= link_to "#", class: "btn order-btn", disabled: "disabled" do %>
+                  <i class="icofont-bbq"></i> Take order
+                <% end %>
+              <% end %>  
+            <% else %>
+              <%= link_to orders_chef_update_order_path(order), class: "btn order-btn", method: :post do %>
+                <i class="icofont-bbq"></i> Mark order as completed
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+<% else %>
+  <p>There are no active orders for you yet, you can rest :)</p>
+<% end %>

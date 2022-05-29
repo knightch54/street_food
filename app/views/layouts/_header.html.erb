@@ -20,10 +20,17 @@
                 <% if user_signed_in? %>
                   <% if current_user.client? %>
                     <%= link_to profile_path do %>
-                      <i class="icofont-pizza-slice"></i> <%= "Profile" %>
+                      <i class="icofont-fast-food"></i> <%= "Profile" %>
                     <% end %>
                   <% else %>
                     <span class="dm-role"><%= current_user.role %></span>
+                    <% case current_user.role
+                    when "chef" %>
+                      <span class="dm-role"> (<%= number_to_currency(current_user.money, :unit => "$") %>)</span>
+                    <% when "manager" %>
+                      <span class="dashl"></span>
+                      <span class="dm-role"><i class="icofont-money"></i> Cash balance: (<%= number_to_currency("1000", :unit => "$") %>)</span>
+                    <% end %>
                   <% end %>
                   <span class="dashl"></span>
                   <%= link_to destroy_user_session_path, :method => :delete do %>

@@ -25,9 +25,19 @@
                         </p>
                         <ul>
                         <% food_data[:ingredients].each do |ingredient| %>
+                          <% ingredient_quantity = food_data[:ingredients_quantity][ingredient.id.to_s] %>
                           <li>
-                            <span>&mdash; <%= ingredient.name %> (x<%= @shopping_cart[food.id.to_s][ingredient.id.to_s] %>)</span>
-                            <span><%= number_to_currency(ingredient.price, :unit => "$") %></span>
+                            <span>
+                              <span class="ingredient-name">
+                                <span>
+                                  <i class="icofont-rounded-left-down"></i> <%= ingredient.name %> (x<%= ingredient_quantity %>)
+                                </span>
+                                <span class="ing-tip-small">
+                                  per one: <%= number_to_currency(ingredient.price, :unit => "$") %>
+                                </span>
+                              </span>
+                            </span>
+                            <span><%= number_to_currency(ingredient.price * ingredient_quantity.to_i, :unit => "$") %></span>
                           </li>
                         <% end %>
                         </ul>

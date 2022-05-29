@@ -2,9 +2,7 @@ class OrdersController < ApplicationController
   include CartHelper
 
   before_action :authenticate_user!
-  before_action :set_order, only: %i[ show edit update destroy open_order ]
-  before_action :get_chef
-  before_action :check_chef
+  before_action :set_order, only: %i[ show edit update destroy open_order chef_update_order ]
 
   # GET /orders or /orders.json
   api :GET, '/chef/:chef_id/orders'
@@ -53,6 +51,19 @@ class OrdersController < ApplicationController
   end
 
   def open_order
+    authorize @order
+  end
+
+  def chef_update_order
+    authorize @order
+
+    chef_order = ChefOrderCompletingService.new(current_user, @order).call
+
+    if chef_order.present?
+      redirect_to orders_url
+    else
+      render_404
+    end
   end
 
   # PATCH/PUT /orders/1 or /orders/1.json
@@ -94,6 +105,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  def completed_list
+    @orders = Order.where("status = 2")
+    authorize @orders
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_order
@@ -103,14 +119,6 @@ class OrdersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def order_params
     params.permit(:food_id)
-  end
-
-  def get_chef
-    @chef = params[:chef_id].present? ? Chef.find(params[:chef_id]) : nil
-  end
-
-  def check_chef
-    # raise ActiveRecord::RecordNotFound unless current_user.chef?
   end
 
   def add_food_to_shopping_cart(order_params)

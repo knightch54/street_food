@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_28_135546) do
+ActiveRecord::Schema.define(version: 2022_05_29_172109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cash_balances", force: :cascade do |t|
     t.float "sum"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "chef_orders", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -81,7 +88,6 @@ ActiveRecord::Schema.define(version: 2022_05_28_135546) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "chef_id"
     t.integer "status", default: 0
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
@@ -98,6 +104,7 @@ ActiveRecord::Schema.define(version: 2022_05_28_135546) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "role", default: 0
+    t.float "money", default: 0.0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

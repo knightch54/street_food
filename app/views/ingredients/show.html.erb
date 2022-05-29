@@ -1,24 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="special-section">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h1 class="heading-section">Show <%= @ingredient.name %></h1>
+        </div>
+      </div>
+      <p id="notice"><%= notice %></p>
+      <div class="row justify-content-center form">
+        <div class="col-md-6 col-lg-4">
+          <div class="login-wrap py-5">
+            <p>
+              <strong>Name:</strong>
+              <%= @ingredient.name %>
+            </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @ingredient.name %>
-</p>
+            <p>
+              <strong>Description:</strong>
+              <%= @ingredient.description %>
+            </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @ingredient.description %>
-</p>
+            <p>
+              <strong>Price:</strong>
+              <%= @ingredient.price %>
+            </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @ingredient.price %>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @ingredient.amount %>
-</p>
-
-<%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |
-<%= link_to 'Back', ingredients_path %>
+            <p>
+              <strong>Amount:</strong>
+              <%= @ingredient.amount %>
+            </p>
+          </div>
+        </div>
+      </div>
+      <%= link_to 'Edit', edit_ingredient_path(@ingredient) %> | <%= link_to 'Back', ingredients_path %>
+    </div>
+  </section>
+</div>

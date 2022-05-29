@@ -2,7 +2,7 @@ class OrderPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.chef?
-        scope.where(:chef_id => user.id)
+        scope.where("status = 0 OR status = 1")
       else
         scope.all
       end
@@ -38,6 +38,14 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def open_order?
-    user.present? && user == order.user
+    user.present? && user == record.user
+  end
+
+  def completed_list?
+    user.chef?
+  end
+
+  def chef_update_order?
+    user.chef?
   end
 end

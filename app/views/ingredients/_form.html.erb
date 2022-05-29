@@ -1,37 +1,27 @@
 <%= form_with(model: ingredient) do |form| %>
   <% if ingredient.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
-
-      <ul>
+    <div class="form-group">
+      <p><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</p>
+      <ul class="list-group mt-5 mb-5">
         <% ingredient.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li class="list-group-item"><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group">
+    <%= form.text_field :name, class: "form-control", placeholder: "Name" %>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+  <div class="form-group">
+    <%= form.text_field :price, class: "form-control", placeholder: "Price"  %>
   </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
+  <div class="form-group">
+    <%= form.text_field :amount, class: "form-control", placeholder: "Amount"  %>
   </div>
-
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.number_field :amount %>
+  <div class="form-group">
+    <%= form.text_area :description, class: "form-control", placeholder: "Description"  %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit class: "btn form-control btn-primary submit px-3 mt-5" %>
   </div>
 <% end %>

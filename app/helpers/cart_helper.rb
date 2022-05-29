@@ -14,14 +14,25 @@ module CartHelper
 
     foods.each do |food|
       ingredients_data = @shopping_cart[food.id.to_s]
-      cart.push({food: food, ingredients: Ingredient.where(id: ingredients_data.keys)})
+      ingredients = Ingredient.where(id: ingredients_data.keys)
+      cart.push({
+        food: food,
+        ingredients: ingredients,
+        ingredients_quantity: ingredients_data
+      })
     end
 
     cart
   end
 
   def shopping_cart_price
-    shopping_cart_data.sum{|food_order| food_order[:food].price + food_order[:ingredients].sum{|ingredients| ingredients.price} }
+    shopping_cart_data.sum do |food_order| 
+      food_price = food_order[:food].price
+      ingredients_price = food_order[:ingredients].sum do |ingredient| 
+        ingredient.price * food_order[:ingredients_quantity][ingredient.id.to_s].to_i
+      end
+      food_price + ingredients_price
+    end
   end
 
   def shopping_cart_clear
