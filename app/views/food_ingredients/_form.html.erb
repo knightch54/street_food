@@ -1,27 +1,22 @@
 <%= form_with(model: food_ingredient) do |form| %>
   <% if food_ingredient.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(food_ingredient.errors.count, "error") %> prohibited this food_ingredient from being saved:</h2>
-
-      <ul>
+    <div class="form-group">
+      <p><%= pluralize(food_ingredient.errors.count, "error") %> prohibited this food ingredient from being saved:</p>
+      <ul class="list-group mt-5 mb-5">
         <% food_ingredient.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li class="list-group-item"><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :ingredient_id %>
-    <%= form.collection_select :ingredient_id, Ingredient.all, :id, :name, {}, {multiple: false} %>
+  <div class="form-group">
+    <%= form.collection_select :ingredient_id, Ingredient.all, :id, :name, {}, {multiple: false, class: "form-select form-control"} %>
   </div>
-
-  <div class="field">
-    <%= form.label :food_id %>
-    <%= form.collection_select :food_id, Food.all, :id, :name, {}, {multiple: false} %>
+  <div class="form-group">
+     <%= form.collection_select :food_id, Food.all, :id, :name, {}, {multiple: false, class: "form-select form-control"} %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit class: "btn form-control btn-primary submit px-3 mt-5" %>
   </div>
 <% end %>
+
