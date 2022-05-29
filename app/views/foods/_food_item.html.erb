@@ -7,9 +7,11 @@
       </div>
       <div class="overlay text-left">
         <h4>Ingredients</h4>
-        <% food.ingredients.each do |ingredient| %>
-          <span><%= ingredient.name %></span>
-        <% end %>
+        <div class="ingredient-body">
+          <% food.ingredients[0..5].each do |ingredient| %>
+            <span><%= ingredient.name %></span>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="food-informaion">
@@ -24,7 +26,11 @@
           </div>
         </div>
         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-          <%= link_to "Order Now", food_order_path(food), remote: true, class: "btn order-btn2" %>
+          <% if user_signed_in? %>
+            <%= link_to "Order Now", food_order_path(food), remote: true, class: "btn order-btn2" %>
+          <% else %>
+            <%= link_to "Order Now", new_user_session_path, class: "btn order-btn2" %>
+          <% end %>
         </div>
       </div>
     </div>

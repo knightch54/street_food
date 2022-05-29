@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
 
     begin
       @order = OrderCreationService.new(current_user, @shopping_cart).call(shopping_cart_price)
-    rescue ActiveRecord::RecordNotFuond
+    rescue ActiveRecord::RecordNotFound
       Rails.logger.error "Order can't be create. Food #{order_params[:food_id]} not found"
     end
 
