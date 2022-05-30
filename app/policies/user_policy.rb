@@ -34,7 +34,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def profile?
-    @record == user
+    user.client?
   end
   
 end

@@ -35,4 +35,12 @@ class User < ApplicationRecord
   def has_any_role?(*args)
     args.any? { |r| self.role == r.to_s }
   end
+
+  def chef_orders_today
+    Order.where("chef_id = #{id} AND created_at >= ?", Time.zone.now.beginning_of_day)
+  end
+
+  def chef_earned_today
+    orders_today.sum(&:price)
+  end
 end

@@ -4,6 +4,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Status</th>
+        <th scope="col">Names of dishes</th>
         <th scope="col">Price</th>
         <th scope="col" colspan="3" class="text-center">Settings</th>
       </tr>
@@ -23,6 +24,7 @@
             <% end %>
             <%= order.status.titleize %>
           </td>
+          <td><%= order.foods.map{|f|f.name}.join(", ") %></td>
           <td><%= number_to_currency(order.price, :unit => "$") %></td>
           <td class="text-center">
             <% if order.waiting? %>
@@ -38,7 +40,7 @@
               <% end %>  
             <% else %>
               <%= link_to orders_chef_update_order_path(order), class: "btn order-btn", method: :post do %>
-                <i class="icofont-bbq"></i> Mark order as completed
+                <i class="icofont-check-circled"></i> Mark order as completed
               <% end %>
             <% end %>
           </td>

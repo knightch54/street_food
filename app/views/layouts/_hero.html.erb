@@ -6,7 +6,7 @@
           <h1>Street <strong>Food</strong></h1>
           <p>Have any food on your mind?<span> <a href="<%= dishes_path %>">Just order now!</a></span></p>
           <!-- Button trigger modal -->
-          <%= link_to "Try daily favorite dish", popular_food_path(food_id: Food.first.id), remote: true, class: "btn menu-btn" %>
+          <%= link_to "Try daily favorite dish", food_order_path(Food.first), remote: true, class: "btn menu-btn" %>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

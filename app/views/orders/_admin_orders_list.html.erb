@@ -3,6 +3,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Status</th>
+      <th scope="col">Names of dishes</th>
       <th scope="col">Price</th>
       <th scope="col" colspan="3" class="text-end">Settings</th>
     </tr>
@@ -22,6 +23,7 @@
           <% end %>
           <%= order.status.titleize %>
         </td>
+        <td><%= order.foods.map{|f|f.name}.join(", ") %></td>
         <td><%= number_to_currency(order.price, :unit => "$") %></td>
         <td colspan="3" class="text-end">
           <%= link_to 'Show', order %>

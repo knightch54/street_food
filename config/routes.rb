@@ -11,7 +11,16 @@ Rails.application.routes.draw do
     sign_up: 'register' 
   }
 
+  resources :food_additional_ingredients
+
   get 'profile', to: 'users#profile'
+
+  # User.roles.keys.each do |role|
+  #   scope role, as: role do
+  #     resources :users, only: [:index]
+  #   end
+  # end
+
   resources :users
 
   post 'add_food_to_cart/:id', to: 'orders#add_food_to_cart', as: :add_food_to_cart
@@ -41,6 +50,10 @@ Rails.application.routes.draw do
 
   resources :foods do
     resources :food_ingredients
+  end
+
+  resources :foods do
+    resources :food_additional_ingredients
   end
   
   root 'main#index'

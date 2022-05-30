@@ -1,0 +1,2 @@
+module FoodAdditionalIngredientsHelper
+end

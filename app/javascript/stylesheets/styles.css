@@ -212,6 +212,14 @@ body:not(.home-page) .header {
   background: #000;
 }
 
+.admin-role .navbar-custom li a {
+  font-size: 13px;
+}
+
+.staff-theme .navbar-custom .nm-item i {
+  font-size: 20px;
+}
+
 .staff-theme .header .navbar {
   height: 95px;
 }

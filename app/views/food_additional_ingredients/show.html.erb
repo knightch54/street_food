@@ -1,0 +1,28 @@
+<div class="special-section">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h1 class="heading-section">Show <%= "#{@food_additional_ingredient.ingredient.name} in #{@food_additional_ingredient.food.name}" %></h1>
+        </div>
+      </div>
+      <p id="notice"><%= notice %></p>
+      <div class="row justify-content-center form">
+        <div class="col-md-6 col-lg-4">
+          <div class="login-wrap py-5">
+            <p>
+              <strong>Ingredient:</strong>
+              <%= @food_additional_ingredient.ingredient.name %> (id: <%= @food_additional_ingredient.ingredient_id %>)
+            </p>
+            <p>
+              <strong>Food:</strong>
+              <%= @food_additional_ingredient.food.name %> (id: <%= @food_additional_ingredient.food_id %>)
+            </p>
+          </div>
+        </div>
+      </div>
+      <%= link_to 'Edit', edit_food_additional_ingredient_path(@food_additional_ingredient) %> |
+      <%= link_to 'Back', food_additional_ingredients_path %>
+    </div>
+  </section>
+</div>

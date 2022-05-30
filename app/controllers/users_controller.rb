@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   api :GET, "/users", "List of users"
   # param_group :user
   def index
-    @users = User.all
+    @users = params[:role].present? ? User.where("role = ?", params[:role]) : User.all
     authorize @users
   end
 
@@ -78,6 +78,7 @@ class UsersController < ApplicationController
   end
 
   def profile
+    authorize current_user
     @user_completed_orders = current_user.orders.where("status = 2")
   end
 
