@@ -6,6 +6,7 @@ class MainController < ApplicationController
     else
       @foods = Food.all.order(:created_at).limit(6)
     end
+    @favorite_dish = Food.first
   end
 
   def dishes
