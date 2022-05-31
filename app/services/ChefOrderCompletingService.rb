@@ -14,6 +14,7 @@ class ChefOrderCompletingService
   def set_order_to_chef
     if @order.waiting?
       @order.update_attribute(:status, 1)
+      # to_do minus ingridients
       create_chef_order
     else
       @order.update_attribute(:status, 2)

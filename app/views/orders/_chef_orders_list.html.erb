@@ -1,11 +1,10 @@
 <% if @orders.any? %>
-  <table class="table table-striped table-hover">
+  <table class="table table-striped table-hover orders-table">
     <thead class="table-orange">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Status</th>
         <th scope="col">Names of dishes</th>
-        <th scope="col">Price</th>
         <th scope="col" colspan="3" class="text-center">Settings</th>
       </tr>
     </thead>
@@ -24,8 +23,9 @@
             <% end %>
             <%= order.status.titleize %>
           </td>
-          <td><%= order.foods.map{|f|f.name}.join(", ") %></td>
-          <td><%= number_to_currency(order.price, :unit => "$") %></td>
+          <td>
+            <%= render partial: "orders/order_detail", locals: {order: order} %>
+          </td>
           <td class="text-center">
             <% if order.waiting? %>
               <% if order.enough_ingredients? %>
@@ -33,8 +33,8 @@
                   <i class="icofont-bbq"></i> Take order
                 <% end %>
               <% else %>
-                <p>Not enough ingredients for cooking, tell the manager that cooking is not possible!</p>
-                <%= link_to "#", class: "btn order-btn", disabled: "disabled" do %>
+                <p class="mb-2">Not enough ingredients for cooking,<br> tell the manager that cooking is not possible!</p>
+                <%= link_to "#", class: "btn order-btn disabled" do %>
                   <i class="icofont-bbq"></i> Take order
                 <% end %>
               <% end %>  
