@@ -1,0 +1,24 @@
+<%= form_with(model: cash_balance) do |form| %>
+  <% if cash_balance.errors.any? %>
+    <div class="form-group">
+      <p><%= pluralize(cash_balance.errors.count, "error") %> prohibited this food ingredient from being saved:</p>
+      <ul class="list-group mt-5 mb-5">
+        <% cash_balance.errors.each do |error| %>
+          <li class="list-group-item"><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.select :status, CashBalance.statuses.keys, {}, class: 'form-select user-roles-select' %>
+  </div>
+  <div class="form-group">
+     <%= form.text_field :sum, class: "form-control", placeholder: "Sum" %>
+  </div>
+  <div class="form-group">
+     <%= form.text_field :user_id, class: "form-control", placeholder: "Chef ID" %>
+  </div>
+  <div class="form-group">
+    <%= form.submit class: "btn form-control btn-primary submit px-3 mt-5" %>
+  </div>
+<% end %>

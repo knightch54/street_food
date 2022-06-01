@@ -8,10 +8,6 @@ class ChefMoneyReceivingService
   def call(percent)
     sum = pay_daily_money_to_chef(percent)
     
-    # send_email_notification
-    
-    Rails.logger.info "The Chef (#{@chef.email}) successfully received his salary"
-
     sum
   end
   

@@ -9,8 +9,12 @@
       </div>
     </div>
     <div class="row food-box">
-      <% @foods.each do |food| %>
-        <%= render partial: "foods/food_item", locals: {food: food} %>
+      <% if @foods.any? %>
+        <% @foods.each do |food| %>
+          <%= render partial: "foods/food_item", locals: {food: food} %>
+        <% end %>
+      <% else %>
+        Dear customer, I'm sorry, I know you want delicious street food, unfortunately we can't offer you anything right now.
       <% end %>
     </div>
   </div>

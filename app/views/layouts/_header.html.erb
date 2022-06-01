@@ -29,7 +29,7 @@
                       <span class="dm-role"> (<%= number_to_currency(current_user.money, :unit => "$") %>)</span>
                     <% when "manager" %>
                       <span class="dashl"></span>
-                      <span class="dm-role"><i class="icofont-money"></i> Cash balance: (<%= number_to_currency("1000", :unit => "$") %>)</span>
+                      <span class="dm-role"><i class="icofont-money"></i> Cash balance: (<%= number_to_currency(CashBalance.last.sum, :unit => "$") %>)</span>
                     <% end %>
                   <% end %>
                   <span class="dashl"></span>

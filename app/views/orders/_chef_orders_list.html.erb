@@ -4,6 +4,8 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Status</th>
+        <th scope="col">Client</th>
+        <th scope="col">Time</th>
         <th scope="col">Names of dishes</th>
         <th scope="col" colspan="3" class="text-center">Settings</th>
       </tr>
@@ -22,6 +24,12 @@
               <i class="icofont-check-circled"></i>
             <% end %>
             <%= order.status.titleize %>
+          </td>
+          <td>
+            <%= order.user.email %>
+          </td>
+          <td>
+            <%= order.created_at.strftime("%H:%M:%S")%>
           </td>
           <td>
             <%= render partial: "orders/order_detail", locals: {order: order} %>

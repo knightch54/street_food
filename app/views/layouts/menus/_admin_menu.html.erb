@@ -20,11 +20,16 @@
 </li>
 <li class="nav-item nm-item <%= menu_item_active?(food_ingredients_path) %>">
   <%= link_to food_ingredients_path, class: "nav-link" do %>
-    <i class="icofont-sandwich"></i> ingredients for Food 
+    <i class="icofont-sandwich"></i> Food ingredients
   <% end %>
 </li>
 <li class="nav-item nm-item <%= menu_item_active?(food_additional_ingredients_path) %>">
   <%= link_to food_additional_ingredients_path, class: "nav-link" do %>
-    <i class="icofont-spoon-and-fork"></i> Additional for food
+    <i class="icofont-spoon-and-fork"></i> Additionals
+  <% end %>
+</li>
+<li class="nav-item nm-item <%= menu_item_active?(cash_balances_path) %>">
+  <%= link_to cash_balances_path, class: "nav-link" do %>
+    <i class="icofont-money"></i> Cashboxes
   <% end %>
 </li>

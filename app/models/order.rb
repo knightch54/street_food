@@ -12,6 +12,8 @@ class Order < ApplicationRecord
   scope :waiting, -> { where(status: 0) }
   scope :in_progress, -> { where(status: 1) }
   scope :completed, -> { where(status: 2) }
+  scope :today_completed, -> { where("created_at >= ? and status = 2", Time.zone.now.beginning_of_day) }
+
 
   def enough_ingredients?
     food_orders.each do |food_order|
@@ -22,4 +24,14 @@ class Order < ApplicationRecord
     end
     true
   end
+
+  def subtract_used_ingredients
+    food_orders.each do |food_order|
+      food_order.ingredients_sum.each do |ingredient_id, quantity|
+        ingredient = Ingredient.find(ingredient_id)
+        ingredient.update_attribute(:amount, ingredient.amount - quantity)
+      end
+    end
+  end 
+
 end

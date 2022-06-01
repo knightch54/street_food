@@ -14,10 +14,13 @@ class ChefOrderCompletingService
   def set_order_to_chef
     if @order.waiting?
       @order.update_attribute(:status, 1)
-      # to_do minus ingridients
+      @order.subtract_used_ingredients
       create_chef_order
     else
       @order.update_attribute(:status, 2)
+      # add money to today cashbox
+      cashbox = get_today_cashbox
+      cashbox.update_attribute(:sum, cashbox.sum + @order.price)
     end
   end
 
@@ -26,6 +29,10 @@ class ChefOrderCompletingService
       user_id: @chef.id,
       order_id: @order.id
     })
+  end
+
+  def get_today_cashbox
+    CashBalance.last
   end
   
   def send_email_notification
