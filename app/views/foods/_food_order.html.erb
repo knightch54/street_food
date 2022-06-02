@@ -18,27 +18,36 @@
               <%= @food.description %>
             </p>
             <%= form_with url: add_food_to_cart_path(@food.id), local: false do |form| %>
-              <div class="form-group">
-                <p class="custom-note">
-                  <small>You can order additional ingredients to your order</small>
-                </p>
-              </div>
-              <% @food.additional_ingredients.each do |ingredient| %>
-                <div class="form-group additional-ingredient-item">
-                  <div class="qty">
-                    <span class="title">
-                      <%= ingredient.name %> <span class="ai-small-tip">per one <%= number_to_currency(ingredient.price, :unit => "$") %></span>
-                    </span>
-                    <span class="quantity">
-                      <i class="minus hide icofont-minus-square"></i>
-                      <%= form.number_field :food, name: "food[additional_ingredients][#{ingredient.id}]", value: 0, class: "count hide", readonly: "readonly" %>
-                      <i class="plus icofont-plus-square"></i>
-                    </span>
-                  </div>
+              <% if @food.additional_ingredients.any? %>
+                <div class="form-group">
+                  <p class="custom-note">
+                    <small>You can order additional ingredients to your order</small>
+                  </p>
                 </div>
+                <% @food.additional_ingredients.each do |ingredient| %>
+                  <div class="form-group additional-ingredient-item">
+                    <div class="qty">
+                      <span class="title">
+                        <%= ingredient.name %> <span class="ai-small-tip">per one <%= number_to_currency(ingredient.price, :unit => "$") %></span>
+                      </span>
+                      <span class="quantity">
+                        <i class="minus hide icofont-minus-square"></i>
+                        <%= form.number_field :food, name: "food[additional_ingredients][#{ingredient.id}]", value: 0, class: "count hide", readonly: "readonly" %>
+                        <i class="plus icofont-plus-square"></i>
+                      </span>
+                    </div>
+                  </div>
+                <% end %>
               <% end %>
               <div class="form-group mt-4">
-                <%= form.submit "Add to Order", class: "btn order-btn3" %>
+                <% if @food.additional_ingredients.any? %>
+                  <%= form.submit "Add to Order", class: "btn order-btn3" %>
+                <% else %>
+                  <p class="custom-note">
+                    <small>unfortunately today this dish is not available, the chef has not yet formed an addition to it</small>
+                  </p>
+                  <%= link_to "Add to Order", "#", class: "btn order-btn3 disabled" %>
+                <% end %>
               </div>
             <% end %>
           </div>

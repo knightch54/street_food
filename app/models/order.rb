@@ -25,13 +25,4 @@ class Order < ApplicationRecord
     true
   end
 
-  def subtract_used_ingredients
-    food_orders.each do |food_order|
-      food_order.ingredients_sum.each do |ingredient_id, quantity|
-        ingredient = Ingredient.find(ingredient_id)
-        ingredient.update_attribute(:amount, ingredient.amount - quantity)
-      end
-    end
-  end 
-
 end

@@ -251,6 +251,8 @@ body:not(.home-page) .header {
   margin: 5px 0 !important;
 }
 
+#chef-salary-range {max-width: 300px; width: 100%;}
+
 .header .dm-role {
   font-size: 14px;
   text-align: left !important;

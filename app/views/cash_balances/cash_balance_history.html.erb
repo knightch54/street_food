@@ -1,0 +1,34 @@
+
+
+
+<div class="special-section">
+  <div class="container">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Cash Balances History</h1>
+
+    <table class="table table-striped table-hover">
+      <thead class="table-orange">
+        <tr>
+          <th>Sum</th>
+          <th>Date</th>
+          <th class="text-end">Chef</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @cash_balances.each do |cash_balance| %>
+          <tr>
+            <td><%= number_to_currency(cash_balance.sum, :unit => "$") %></td>
+            <td><%= cash_balance.created_at.strftime("%d/%m/%Y")%></td>
+            <td class="text-end">
+              <% chef = cash_balance.chef %>
+              <%= "#{chef.name} (#{chef.email})" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+  </div>
+</div>

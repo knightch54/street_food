@@ -12,6 +12,6 @@ module ApplicationHelper
   end
 
   def percentage_of_number(number, percent)
-    number / 100 * percent
+    (number.to_f / 100 * percent.to_f).round(2)
   end
 end

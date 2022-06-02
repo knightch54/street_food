@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   #     resources :users, only: [:index]
   #   end
   # end
-  post 'close_cashbox/:id', to: 'cash_balances#close_cashbox', as: :cash_balances_close_cashbox
+  get 'cash_balances/cash_balance_history', to: 'cash_balances#cash_balance_history' 
+  post 'cash_balances/close_cashbox/:id', to: 'cash_balances#close_cashbox', as: :cash_balances_close_cashbox
   resources :cash_balances
 
   resources :users
