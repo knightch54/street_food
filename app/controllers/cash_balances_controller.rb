@@ -1,9 +1,14 @@
 class CashBalancesController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_cash_balance, only: %i[ show edit update destroy close_cashbox ]
 
   # GET /cash_balances or /cash_balances.json
   def index
+    authorize CashBalance
+
     initialize_cash_balance
+    
     if current_user.admin?
       @cash_balances = params[:status].present? ? CashBalance.where("status = ?", params[:status]) : CashBalance.all
     else
@@ -21,15 +26,18 @@ class CashBalancesController < ApplicationController
   # GET /cash_balances/new
   def new
     @cash_balance = CashBalance.new
-    # authorize @cash_balance
+    authorize @cash_balance
   end
 
   # GET /cash_balances/1/edit
   def edit
+    authorize @cash_balance
   end
 
   # POST /cash_balances or /cash_balances.json
   def create
+    authorize CashBalance
+
     @cash_balance = CashBalance.new(cash_balance_params)
 
     respond_to do |format|
@@ -45,6 +53,8 @@ class CashBalancesController < ApplicationController
 
   # PATCH/PUT /cash_balances/1 or /cash_balances/1.json
   def update
+    authorize @cash_balance
+
     respond_to do |format|
       if @cash_balance.update(cash_balance_params)
         format.html { redirect_to cash_balance_url(@cash_balance), notice: "Cash balance was successfully updated." }
@@ -58,6 +68,8 @@ class CashBalancesController < ApplicationController
 
   # DELETE /cash_balances/1 or /cash_balances/1.json
   def destroy
+    authorize @cash_balance
+
     @cash_balance.destroy
 
     respond_to do |format|
@@ -67,6 +79,8 @@ class CashBalancesController < ApplicationController
   end
 
   def close_cashbox
+    authorize CashBalance
+
     salary_percentage = params[:salary_percentage]
     chef = User.find(params[:chef_id])
 
@@ -77,6 +91,7 @@ class CashBalancesController < ApplicationController
 
   def cash_balance_history
     @cash_balances = CashBalance.closed
+    authorize @cash_balances
   end
 
   private

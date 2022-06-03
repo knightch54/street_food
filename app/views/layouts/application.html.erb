@@ -19,5 +19,8 @@
       <%= yield %>
     </div>
     <%= render 'layouts/footer' unless @disable_footer %>
+    <% if user_signed_in? && current_user.client? && shopping_cart_contain_products? %>
+      <%= render partial: "layouts/common/page_cart" %>
+    <% end %>
   </body>
 </html>

@@ -260,6 +260,31 @@ body:not(.home-page) .header {
   text-transform: capitalize;
 }
 
+.cart_page {
+  position: fixed;
+  height: 90px;
+  width: 90px;
+  line-height: 88px;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  right: 20px;
+  bottom: 20px;
+  z-index: 112;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  transform: scale(1);
+}
+
+.cart_page.added {
+  animation: pulse 3s infinite;
+}
+
+.cart_page .shopping-cart-size {
+  font-size: 24px;
+}
+
 .logo {
   width: 100px;
 }
@@ -2743,4 +2768,21 @@ body:not(.home-page) .header {
     z-index: 1;
     opacity: 0.35;
   }
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(246, 95, 38, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 15px rgba(246, 95, 38, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(246, 95, 38, 0);
+	}
 }
