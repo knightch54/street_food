@@ -18,6 +18,6 @@ function percentageOfNumber(number, percent) {
   return parseFloat(number) / 100 * parseFloat(percent);
 }
 
-$( document ).ready(function() {
+$(document).on('turbolinks:load', function() {
   showPayoutInformationRelativeToPercentage();
 });
