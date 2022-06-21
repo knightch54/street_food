@@ -1,10 +1,13 @@
 class OrderMailer < ApplicationMailer
+  layout 'mailer'
+  
   default from: 'noreply@street-food.com'
 
   def create_order
     @user = params[:user]
+    @order = params[:order]
     # @order = params[:order]
-    attachments['order_example.pdf'] = File.read("public/user_orders/order_example.pdf")
+    # attachments['order_example.pdf'] = File.read("public/user_orders/order_example.pdf")
     mail(to: @user.email, subject: 'Thank you for your order')
   end
 end

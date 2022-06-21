@@ -1,0 +1,75 @@
+<div class="modal fade" id="shoppingCart" tabindex="-1" role="dialog" aria-labelledby="shoppingCartTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body py-0">
+        <div class="d-flex main-content">
+          <div class="bg-image promo-img mr-3" style="background-image: url(<%= resolve_path_to_image('burger1.png') %>);">
+          </div>
+          <div class="content-text p-4">
+            <% if shopping_cart_data.any? %>
+              <h3>
+                Your order:
+              </h3>
+              <%= form_with url: create_order_path, local: false do |form| %>
+                <% shopping_cart_data.each do |food_data| %>
+                  <div class="form-group food-item">
+                    <% food = food_data[:food] %>
+                    <div class="food-line">
+                      <span><b><%= food.name %></b></span>
+                      <span><%= number_to_currency(food.price, :unit => "$") %></span>
+                    </div>
+                    <div class="ingredients-line">
+                      <% if food_data[:ingredients].any? %>
+                        <p class="custom-note mb-1">
+                          <small>With extra ingredients:</small>
+                        </p>
+                        <ul>
+                        <% food_data[:ingredients].each do |ingredient| %>
+                          <% ingredient_quantity = food_data[:ingredients_quantity][ingredient.id.to_s] %>
+                          <li>
+                            <span>
+                              <span class="ingredient-name">
+                                <span>
+                                  <i class="icofont-rounded-left-down"></i> <%= ingredient.name %> (x<%= ingredient_quantity %>)
+                                </span>
+                                <span class="ing-tip-small">
+                                  per one: <%= number_to_currency(ingredient.price, :unit => "$") %>
+                                </span>
+                              </span>
+                            </span>
+                            <span><%= number_to_currency(ingredient.price * ingredient_quantity.to_i, :unit => "$") %></span>
+                          </li>
+                        <% end %>
+                        </ul>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="form-group">
+                  <p class="custom-note">
+                    <small>You can remove or change products or ingredients</small>
+                  </p>
+                </div>
+                <div class="form-group submit-line">
+                  <span>
+                    <%= form.submit "Order", class: "btn order-btn3" %>
+                  </span>
+                  <span>
+                    <b><%= number_to_currency(shopping_cart_price, :unit => "$") %></b>
+                  </span>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="no-food-order">
+                <h3>
+                  Your shopping cart is empty...
+                </h3>
+                <p class="mt-3">Choose something tasty, and order it!</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    @record == user
+    user.admin?
   end
 
   def new?
@@ -31,6 +31,10 @@ class UserPolicy < ApplicationPolicy
 
   def destroy?
     user.admin?
+  end
+
+  def profile?
+    user.client?
   end
   
 end

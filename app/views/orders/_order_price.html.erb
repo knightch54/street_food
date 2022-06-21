@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="text-start">
+      <h3 class="mb-4">Order #<%= order.id %></h2>
+      <% order.food_orders.each do |food_order| %>
+        <div class="order-food-item mb-3">
+          <h3 class="mb-2">
+            <div class="food-line">
+              <span>&ldquo;<%= food_order.food.name %>&rdquo;</span>
+              <span>&mdash; <%= number_to_currency(food_order.food.price, :unit => "$") %></span>
+            </span>
+          </h3>
+          <% additional_ingredients = food_order.food_additional_ingredient_orders %>
+          <% if additional_ingredients.any? %>
+            <div class="mb-1 text-start">
+              <small>With extra ingredients:</small>
+            </div>
+            <% additional_ingredients.each do |additional_ingredient| %>
+              <div class="ingredient-line">
+                <span><i class="icofont-rounded-left-down"></i> <%= additional_ingredient.ingredient.name %></span>
+                <span>- <%= number_to_currency(additional_ingredient.ingredient.price, :unit => "$") %> (x<%= additional_ingredient.quantity %>)</span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <h3 class="mt-4">Total: <b><%= number_to_currency(order.price, :unit => "$") %></b></h3>
+    </div>
+  </div>
+</div>

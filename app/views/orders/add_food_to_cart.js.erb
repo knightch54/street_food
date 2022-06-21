@@ -1,0 +1,14 @@
+$('#foodOrder').modal('hide');
+
+if (!$(".cart_page").length) {
+  $('body').append('<%= j render "layouts/common/page_cart" %>');
+}
+
+$(".cart_page").addClass("added").delay(2000).queue(function(next){
+  $(this).removeClass("added");
+  next();
+});
+
+$(".cart-section .shopping-cart-size").each(function( index, element ) {
+  $( this ).text("<%= shopping_cart_size %>");
+});

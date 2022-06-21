@@ -4,12 +4,23 @@
 
     <h1>Users</h1>
 
+    <div class="nested-menu">
+      <% User.roles.each do |role_name, role_id| %>
+        <span>
+          <%= link_to role_name, users_path(role: role_id) %>
+        </span>
+      <% end %>
+      <span>
+        <%= link_to "All", users_path %>
+      </span>
+    </div>
+
     <table class="table table-striped table-hover">
       <thead class="table-orange">
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Email</th>
-          <th scope="col" colspan="3" class="text-center">Settings</th>
+          <th scope="col" colspan="3" class="text-end">Settings</th>
         </tr>
       </thead>
       <tbody>
@@ -17,9 +28,11 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td><%= link_to 'Show', user %></td>
-          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td colspan="3" class="adm-settings">
+            <%= link_to 'Show', user %>
+            <%= link_to 'Edit', edit_user_path(user) %>
+            <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
         </tr>
         <% end %>
       </tbody>

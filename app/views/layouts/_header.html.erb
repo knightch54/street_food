@@ -14,39 +14,49 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav navbar-custom">
-            <li class="nav-item <%= menu_item_active?(root_path) %>">
-              <%= link_to "Home", root_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item <%= menu_item_active?(dishes_path) %>">
-              <%= link_to "Menu", dishes_path, class: "nav-link" %>
-            </li>
-            <% if user_signed_in? && current_user.has_any_role?(:admin, :manager, :chef) %>
-              <li class="nav-item dropdown">
-                <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Controllers List
-                </span>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item <%= menu_item_active?(orders_path) %>" href="<%= orders_path %>">Orders</a>
-                  <a class="dropdown-item <%= menu_item_active?(foods_path) %>" href="<%= foods_path %>">Foods</a>
-                  <a class="dropdown-item <%= menu_item_active?(users_path) %>" href="<%= users_path %>">Users</a>
-                  <a class="dropdown-item <%= menu_item_active?(managers_path) %>" href="<%= managers_path %>">Managers</a>
-                  <a class="dropdown-item <%= menu_item_active?(chefs_path) %>" href="<%= chefs_path %>">Chefs</a>
-                </div>
-              </li>
-            <% end %>
-            <li class="nav-item <%= menu_item_active?(contact_path) %>">
-              <%= link_to "Contact", contact_path, class: "nav-link" %>
-            </li>
-
+            <%= render partial: "layouts/menus/#{@user_logged_in_and_is_staff ? current_user.role + "_menu" : "menu"}" %>
             <li class="nav-item last-menu-bg">
               <span class="nav-link">
                 <% if user_signed_in? %>
-                  <%= link_to "Profile (#{current_user.role})", current_user %> <span class="dashl">|</span> <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+                  <% if current_user.client? %>
+                    <%= link_to profile_path do %>
+                      <i class="icofont-fast-food"></i> <%= "Profile" %>
+                    <% end %>
+                  <% else %>
+                    <span class="dm-role"><%= current_user.role %></span>
+                    <% case current_user.role
+                    when "chef" %>
+                      <span class="dm-role"> (<%= number_to_currency(current_user.money, :unit => "$") %>)</span>
+                    <% when "manager" %>
+                      <span class="dashl"></span>
+                      <span class="dm-role"><i class="icofont-money"></i> Cash balance: (<%= number_to_currency(CashBalance.last.sum, :unit => "$") %>)</span>
+                    <% end %>
+                  <% end %>
+                  <span class="dashl"></span>
+                  <%= link_to destroy_user_session_path, :method => :delete do %>
+                    Log out <i class="icofont-logout"></i>
+                  <% end %>
                 <% else %>
-                  <%= link_to "Log in", "/login#login"  %>
+                  <%= link_to new_user_session_path do %>
+                    Log in <i class="icofont-login"></i>
+                  <% end %>
                 <% end %>
               </span>
             </li>
+            <% if user_signed_in? && current_user.client? %>
+              <li class="nav-item">
+                <span class="nav-link cart-link">
+                  <%= link_to show_shopping_cart_path, remote: true, class: "cart-section" do %>
+                    <i class="icofont-food-basket"></i>
+                    <span class="shopping-cart-size">
+                      <% if shopping_cart_contain_products? %>
+                        <%= shopping_cart_size %>
+                      <% end %>
+                    </span>
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>

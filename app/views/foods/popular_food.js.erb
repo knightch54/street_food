@@ -1,0 +1,6 @@
+$('body').append('<%= j render "popular_food", food: @food %>');
+$('#popularFood').modal('show'); 
+
+$('#popularFood').on('hidden.bs.modal', function () {
+  $(this).remove();
+});

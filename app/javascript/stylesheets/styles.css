@@ -9,11 +9,17 @@
   -moz-box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   color: #0a0626;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
@@ -90,6 +96,11 @@ button:hover {
 /*----- BASIC CSS -----*/
 
 /* HIDDEN CSS */
+
+.disabled {
+  cursor: auto;
+  opacity: 0.7;
+}
 
 .pr-none {
   padding-right: 0px !important;
@@ -201,6 +212,79 @@ button:hover {
   background: rgba(0, 0, 0, 0.22);
 }
 
+body:not(.home-page) .header {
+  position: static;
+  background: #000;
+}
+
+.admin-role .navbar-custom li a {
+  font-size: 13px;
+}
+
+.staff-theme .navbar-custom .nm-item i {
+  font-size: 20px;
+}
+
+.staff-theme .header .navbar {
+  height: 95px;
+}
+
+.staff-theme .header .navbar-custom {
+  width: 100%;
+}
+
+.staff-theme .header .navbar-brand,
+.staff-theme .header .open-time {
+  display: none;
+}
+
+.staff-theme .header .navbar-custom .last-menu-bg {
+  margin-left: auto;
+}
+
+.orders-table .order-food-item h3 {
+  margin: 10px 0 !important;
+  font-size: 18px;
+}
+
+.orders-table .order-food-item {
+  margin: 5px 0 !important;
+}
+
+#chef-salary-range {max-width: 300px; width: 100%;}
+
+.header .dm-role {
+  font-size: 14px;
+  text-align: left !important;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.cart_page {
+  position: fixed;
+  height: 90px;
+  width: 90px;
+  line-height: 88px;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  right: 20px;
+  bottom: 20px;
+  z-index: 112;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  transform: scale(1);
+}
+
+.cart_page.added {
+  animation: pulse 3s infinite;
+}
+
+.cart_page .shopping-cart-size {
+  font-size: 24px;
+}
+
 .logo {
   width: 100px;
 }
@@ -248,6 +332,10 @@ button:hover {
   left: 0px;
   bottom: 0px;
   transition: all 0.3s;
+}
+
+.navbar-custom .last-menu-bg:before {
+  display: none;
 }
 
 .navbar-custom li:last-child {
@@ -321,12 +409,38 @@ button:hover {
 }
 
 .navbar-light .navbar-nav .dashl {
-  color: #fff;
+  margin: 0px 10px;
+  border-right: 1px solid #6c757d;
 }
 
 .navbar-light .navbar-nav .nav-link {
   color: #000;
   user-select: none;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link a {
+  padding: 0px 20px;
+  background-color: #000;
+  color: #fff!important;
+  border-radius: 50px;
+  height: 50px;
+  line-height: 48px;
+  display: block;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link .products_amount {
+  padding-left: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.cart-link a:hover {
+  color: #ff702a!important;
 }
 
 /* HEADER PART CSS END */
@@ -456,6 +570,13 @@ button:hover {
 
 /* HOME HERO SECTION CSS END */
 
+/* CONTENT CSS START */
+.content {
+  padding-top: 30px;
+  flex: 1 0 auto;
+}
+/* CONTENT CSS END */
+
 /* SPECIAL SECTION CSS START */
 .special-section {
   padding: 80px 0px;
@@ -495,6 +616,27 @@ button:hover {
 
 .special-content p span {
   color: #ff702a;
+}
+
+.special-section table td {
+  vertical-align: middle;
+}
+
+.special-section .nested-menu {
+  margin-bottom: 10px;
+}
+
+.special-section .nested-menu span {
+  display: inline-block;
+  padding: 5px 20px;
+  font-size: 15px;
+  background-color: #fbb042;
+  text-align: center;
+  border-radius: 7px;
+}
+
+.special-section .nested-menu span a {
+  color: #000 !important;
 }
 
 .donut-icon {
@@ -745,6 +887,44 @@ button:hover {
   color: #fff;
 }
 
+.order-btn3 {
+  color: #0a0626;
+  padding: 10px 20px;
+  background: #fbb042;
+  border-radius: 35px;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.order-btn3:hover {
+  background: #fc802a;
+  color: #fff;
+}
+
+.order-btn3:focus {
+  box-shadow: none;
+  background: #fc802a;
+  color: #fff;
+}
+
+.small-btn {
+  display: inline-block;
+  width: auto;
+}
+
+.small-btn[aria-expanded=true] {
+  color: red;
+}
+
+.adm-settings {
+  text-align: right;
+}
+
+.adm-settings a {
+  margin-left: 15px;
+}
+
 .food-img {
   width: 200px;
 }
@@ -954,6 +1134,19 @@ button:hover {
   width: 100px;
   height: 100px;
   z-index: 1111;
+}
+
+#open_order small {
+  font-size: 16px;
+  font-style: italic;
+}
+
+#open_order .w-color {
+  color: #ff702a;
+}
+
+#open_order h3 {
+  font-weight: 600;
 }
 
 /* CUSTOMER SECTION CSS END */
@@ -1898,6 +2091,10 @@ button:hover {
   transition: all .2s ease-in-out;
 }
 
+.form textarea.form-control {
+  min-height: 150px;
+}
+
 
 .form .btn.btn-primary {
   background: linear-gradient(to right, #f65f26, #d41c18);
@@ -2056,6 +2253,7 @@ button:hover {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
 .footer:before {
@@ -2570,4 +2768,21 @@ button:hover {
     z-index: 1;
     opacity: 0.35;
   }
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(246, 95, 38, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 15px rgba(246, 95, 38, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(246, 95, 38, 0);
+	}
 }

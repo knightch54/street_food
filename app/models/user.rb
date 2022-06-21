@@ -28,15 +28,19 @@ class User < ApplicationRecord
     UserMailer.with(user: self).welcome_email.deliver_now
   end
 
-  def chef?
-    chef.present?
-  end
-
   def set_default_role
     self.role ||= :client
   end
 
   def has_any_role?(*args)
     args.any? { |r| self.role == r.to_s }
+  end
+
+  def chef_orders_today
+    Order.where("chef_id = #{id} AND created_at >= ?", Time.zone.now.beginning_of_day)
+  end
+
+  def chef_earned_today
+    orders_today.sum(&:price)
   end
 end

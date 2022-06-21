@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   api :GET, "/users", "List of users"
   # param_group :user
   def index
-    @users = User.all
+    @users = params[:role].present? ? User.where("role = ?", params[:role]) : User.all
     authorize @users
   end
 
@@ -77,6 +77,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    authorize current_user
+    @user_completed_orders = current_user.orders.where("status = 2")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -85,6 +90,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:name, :email, :password, :role)
     end
 end

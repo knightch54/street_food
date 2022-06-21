@@ -12,11 +12,15 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application','data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
+  <body class="<%= generate_body_classes %>">
     <%= render 'layouts/header' unless @disable_header %>
-    <%= render 'layouts/hero' unless @disable_hero %>
-    <%= yield %>
+    <%= render 'layouts/hero' unless @disable_hero || !current_page?(root_url) || @user_logged_in_and_is_staff %>
+    <div class="content">
+      <%= yield %>
+    </div>
     <%= render 'layouts/footer' unless @disable_footer %>
+    <% if user_signed_in? && current_user.client? && shopping_cart_contain_products? %>
+      <%= render partial: "layouts/common/page_cart" %>
+    <% end %>
   </body>
 </html>

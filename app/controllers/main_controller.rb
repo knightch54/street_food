@@ -1,7 +1,12 @@
 class MainController < ApplicationController
 
   def index
-    @foods = Food.all.order(:created_at).limit(6)
+    if @user_logged_in_and_is_staff
+      redirect_to path_by_role
+    else
+      @foods = Food.all.order(:created_at).limit(6)
+    end
+    @favorite_dish = Food.first
   end
 
   def dishes

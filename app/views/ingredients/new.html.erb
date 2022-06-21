@@ -1,0 +1,19 @@
+<div class="special-section">
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h1 class="heading-section">New Ingredient</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center form">
+        <div class="col-md-6 col-lg-4">
+          <div class="login-wrap py-5">
+            <%= render 'form', ingredient: @ingredient %>
+          </div>
+        </div>
+      </div>
+      <%= link_to 'Back', ingredients_path %>
+    </div>
+  </section>
+</div>

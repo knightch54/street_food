@@ -1,0 +1,13 @@
+<div class="special-section">
+  <div class="container">
+    <p id="notice"><%= notice %></p>
+
+    <% if current_user.admin? %>
+      <h1>Cash Balances</h1>
+    <% else %>
+      <h1>Cash Balance today:</h1>
+    <% end %>
+
+    <%= render partial: "#{current_user.role.parameterize(separator: '_')}_cashboxes_list", locals: {cash_balances: @cash_balances} %>
+  </div>
+</div>

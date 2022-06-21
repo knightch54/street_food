@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="menu-head text-start">
+      <% order.food_orders.each do |food_order| %>
+        <div class="order-food-item mb-3">
+          <h3 class="mb-2">
+            <%= food_order.food.name %>
+          </h3>
+          <% additional_ingredients = food_order.food_additional_ingredient_orders %>
+          <% if additional_ingredients.any? %>
+            <div class="mb-1 text-start">
+              <small>With extra ingredients:</small>
+            </div>
+            <% additional_ingredients.each do |additional_ingredient| %>
+              <div>
+                &mdash; <%= additional_ingredient.ingredient.name %> (x<%= additional_ingredient.quantity %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

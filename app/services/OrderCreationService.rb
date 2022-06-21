@@ -1,46 +1,61 @@
 class OrderCreationService
 
-  def initialize(current_user)
+  def initialize(current_user, shopping_cart)
     @current_user = current_user
+    @cart = shopping_cart
   end
-  
-  def call(order_attributes)
-    begin
-      food = get_food(order_attributes)
-      order = create_order(price: food.price)
-      create_food_order(order_id: order.id, food_id: food.id)
-    rescue ActiveRecord::RecordNotFound
-    # rescue => e
-      # p e
-      Rails.logger.error "Order can't be create. Food #{order_attributes[:food_id]} not found"
-      return false
+
+  def call(cart_price)
+    foods = Food.where(id: @cart.keys)
+
+    if foods.any?
+      order = create_order(@current_user, cart_price)
+
+      if order.present?
+        foods.each do |food|
+          ingredients = Ingredient.where(id: @cart[food.id.to_s].keys)
+          create_food_order(order, food, ingredients)
+        end
+      end
+
+      send_email_notification(order)
+
+      return order
     end
-    # return order unless order.persisted?
-    send_email_notification
-    order
-  end
-  
-  protected
-  
-  def create_order(order_attributes)
-    order_attributes = order_attributes.merge(
-      user_id: @current_user.id
-    )
-    Order.create(order_attributes)
+
+    false
   end
 
-  def create_food_order(food_order_attributes)
-    food_order_attributes = food_order_attributes.merge(
-      user_id: @current_user.id
-    )
-    FoodOrder.create(food_order_attributes)
-  end
-
-  def get_food(order_attributes)
-    Food.find(order_attributes[:food_id])
+  def create_order(user, cart_price)
+    Order.create({
+      user_id: user.id,
+      price: cart_price
+    })
   end
   
-  def send_email_notification
-    OrderMailer.with(user: @current_user).create_order.deliver_now
+  def create_food_order(order, food, ingredients)
+    food_order = FoodOrder.create({
+      order_id: order.id,
+      food_id: food.id
+    })
+    
+    if food_order.present?
+      ingredients.each do |ingredient|
+        quantity = @cart[food.id.to_s][ingredient.id.to_s]
+        create_food_order_ingredients(food_order, ingredient, quantity)
+      end
+    end
+  end
+  
+  def create_food_order_ingredients(food_order, ingredient, quantity)
+    FoodAdditionalIngredientOrder.create({
+      food_order_id: food_order.id,
+      ingredient_id: ingredient.id,
+      quantity: quantity
+    })
+  end
+
+  def send_email_notification(order)
+    OrderMailer.with(user: @current_user, order: order).create_order.deliver_now
   end
 end

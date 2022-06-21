@@ -1,0 +1,8 @@
+<%= link_to show_shopping_cart_path, remote: true, class: "cart_page cart-section" do %>
+  <i class="icofont-food-basket"></i>
+  <span class="shopping-cart-size">
+    <% if shopping_cart_contain_products? %>
+      <%= shopping_cart_size %>
+    <% end %>
+  </span>
+<% end %>

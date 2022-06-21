@@ -1,17 +1,13 @@
 class ChefMoneyReceivingService
   include ApplicationHelper
 
-  def initialize(chef)
+  def initialize(chef, cash_balance)
     @chef = chef
   end
   
   def call(percent)
     sum = pay_daily_money_to_chef(percent)
     
-    # send_email_notification
-    
-    Rails.logger.info "The Chef (#{@chef.email}) successfully received his salary"
-
     sum
   end
   
@@ -24,7 +20,12 @@ class ChefMoneyReceivingService
     pay_sum = percentage_of_number(day_cash_sum, percent)
 
     @chef.update_attribute(:money, @chef.money + pay_sum)
-    day_cash_balance.update_attribute(:sum, day_cash_sum - pay_sum)
+
+    day_cash_balance.update({
+      sum: (day_cash_sum - pay_sum).round(2),
+      user_id: @chef.id
+    })
+    day_cash_balance.close
 
     @chef.money
   end

@@ -8,6 +8,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">name</th>
+          <th scope="col">price</th>
           <th scope="col">description</th>
           <th scope="col" colspan="3" class="text-center">Settings</th>
         </tr>
@@ -17,6 +18,7 @@
           <tr>
             <td><%= food.id %></td>
             <td><%= food.name %></td>
+            <td><%= food.price %></td>
             <td><%= food.description %></td>
             <td class="text-center"><%= link_to 'Show', food %></td>
             <td class="text-center"><%= link_to 'Edit', edit_food_path(food) %></td>

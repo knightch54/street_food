@@ -4,8 +4,11 @@
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
         <div class="home-hero-content">
           <h1>Street <strong>Food</strong></h1>
-          <p>Have any food on your mind?<span> <a href="contact.html">Just order now!</a></span></p>
-          <a class="btn menu-btn" href="#food-menu">Today's Menu <i class="icofont-double-right"></i></a>
+          <p>Have any food on your mind?<span> <a href="<%= dishes_path %>">Just order now!</a></span></p>
+          <!-- Button trigger modal -->
+          <% if @favorite_dish.present? %>
+          <%= link_to "Try daily favorite dish", food_order_path(@favorite_dish), remote: true, class: "btn menu-btn" %>
+          <% end %>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

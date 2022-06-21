@@ -1,0 +1,17 @@
+<div class="special-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="menu-head text-center">
+          <h2>Profile</h2>
+          <p class="pt-1 pb-5"><%= current_user.email %></p>
+          <% @user_completed_orders.each do |order| %>
+            <div class="food-menu mb-4">
+              <%= render partial: "orders/order_price", locals: {order: order} %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="nested-menu">
+  <% CashBalance.statuses.each do |status_name, status_id| %>
+    <span>
+      <%= link_to status_name.titleize, cash_balances_path(status: status_id) %>
+    </span>
+  <% end %>
+  <span>
+    <%= link_to "All", cash_balances_path %>
+  </span>
+</div>
+
+<table class="table table-striped table-hover">
+  <thead class="table-orange">
+    <tr>
+      <th>Status</th>
+      <th>Sum</th>
+      <th>Date</th>
+      <th colspan="3" class="text-end">Settings</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cash_balances.each do |cash_balance| %>
+      <tr>
+        <td><%= cash_balance.status.titleize %></td>
+        <td><%= number_to_currency(cash_balance.sum, :unit => "$") %></td>
+        <td><%= cash_balance.created_at.strftime("%d/%m/%Y")%></td>
+        <td colspan="3" class="text-end">
+          <%= link_to 'Show', cash_balance %>
+          <%= link_to 'Edit', edit_cash_balance_path(cash_balance) %>
+          <%= link_to 'Destroy', cash_balance, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Cash Balance', new_cash_balance_path, class: "btn order-btn" %>

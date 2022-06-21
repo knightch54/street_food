@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
+  include CartHelper
+
   before_action :authenticate_user!
-  before_action :set_order, only: %i[ show edit update destroy open_order ]
-  before_action :get_chef
-  before_action :check_chef
+  before_action :set_order, only: %i[ show edit update destroy open_order chef_update_order ]
 
   # GET /orders or /orders.json
   api :GET, '/chef/:chef_id/orders'
@@ -31,11 +31,19 @@ class OrdersController < ApplicationController
   # POST /orders or /orders.json
   def create
     authorize Order
-    @order = OrderCreationService.new(current_user).call(order_params)
+
+    begin
+      @order = OrderCreationService.new(current_user, @shopping_cart).call(shopping_cart_price)
+    rescue ActiveRecord::RecordNotFound
+      Rails.logger.error "Order can't be create. Food #{order_params[:food_id]} not found"
+    end
 
     respond_to do |format|
       if @order.present?
-        format.html { redirect_to controller: "orders", action: "open_order", id: @order.id, anchor: "open_order" }
+        # clear shopping cart
+        shopping_cart_clear
+        # redirect to open order page
+        format.html { redirect_to controller: "orders", action: "open_order", id: @order.id }
       else
         format.html { render_404 }
       end
@@ -43,6 +51,19 @@ class OrdersController < ApplicationController
   end
 
   def open_order
+    authorize @order
+  end
+
+  def chef_update_order
+    authorize @order
+
+    chef_order = ChefOrderCompletingService.new(current_user, @order).call
+
+    if chef_order.present?
+      redirect_to orders_url
+    else
+      render_404
+    end
   end
 
   # PATCH/PUT /orders/1 or /orders/1.json
@@ -70,6 +91,25 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show_shopping_cart
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_food_to_cart
+    add_food_to_shopping_cart(params)
+    respond_to do |format|
+      # add add to cart animation css
+      format.js
+    end
+  end
+
+  def completed_list
+    @orders = Order.where("status = 2")
+    authorize @orders
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_order
@@ -81,12 +121,10 @@ class OrdersController < ApplicationController
     params.permit(:food_id)
   end
 
-  def get_chef
-    @chef = params[:chef_id].present? ? Chef.find(params[:chef_id]) : nil
-  end
-
-  def check_chef
-    # raise ActiveRecord::RecordNotFound unless current_user.chef?
+  def add_food_to_shopping_cart(order_params)
+    additional_ingredients_params = order_params.require(:food).permit(:additional_ingredients => {})
+    additional_ingredients = additional_ingredients_params.to_h[:additional_ingredients]
+    @shopping_cart[order_params[:id]] = additional_ingredients.select{|k,v|v.to_i > 0}
   end
 
 end

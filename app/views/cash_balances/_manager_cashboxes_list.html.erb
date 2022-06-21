@@ -1,0 +1,87 @@
+<table class="table table-striped table-hover">
+  <thead class="table-orange">
+    <tr>
+      <th>Status</th>
+      <th>Sum</th>
+      <th>Date</th>
+      <th class="text-center">Payment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= @cash_balance.status.titleize %></td>
+      <td><%= number_to_currency(@cash_balance.sum, :unit => "$") %></td>
+      <td><%= @cash_balance.created_at.strftime("%d/%m/%Y")%></td>
+      <td class="text-center">
+        <% if @orders.any? && @cash_balance.sum > 0 %>
+          <%= form_with url: cash_balances_close_cashbox_path(@cash_balance) do |form| %>
+            <div class="slidecontainer mt-4 mb-4">
+              <div class="chef-salary-section">
+                <div class="cash-balance-sum mb-2">
+                  Cash balance: <b>$<%= @cash_balance.sum %></b>
+                </div>
+                <div>
+                  <%= form.hidden_field :chef_id, value: @chef.id %>
+                  <%= form.range_field "salary_percentage", min: 30, max: 100, value: 30, balance: @cash_balance.sum, class: "slider", id: "chef-salary-range" %>
+                  <b><span class="percent-salary">%30</span></b>
+                </div>
+                <div class="mt-2">
+                  Сhef's salary will be:
+                  <b><span class="chef-salary">$<%= percentage_of_number(@cash_balance.sum, 30) %></span></b>
+                </div>
+              </div>
+            </div>
+            <%= form.button(type: 'submit', class: "btn order-btn mb-4") do %>
+              <i class="icofont-bbq"></i> Close cashbox & pay to Chef <%= "#{@chef.name} (#{@chef.email})" %>
+            <% end %>
+            
+          <% end %>
+        <% else %>
+          <p class="mt-2 mb-2">Today, Chef hasn't completed any orders</p>
+          <%= link_to "#", class: "btn order-btn mb-2 disabled", method: :post do %>
+            <i class="icofont-bbq"></i> Close cashbox & pay to Chef
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br><br>
+
+<% if @orders.any? && @cash_balance.sum > 0 %>
+  <h2 class="mb-4">Today completed orders - by Chef <%= "#{@chef.name} (#{@chef.email})" %></h2>
+  <table class="table table-striped table-hover">
+    <thead class="table-orange">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Status</th>
+        <th scope="col">Names of dishes</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <% @orders.each do |order| %>
+      <tbody>
+        <tr>
+          <td><%= order.id %></td>
+          <td>
+            <% case order.status 
+            when "waiting" %>
+              <i class="icofont-chef"></i>
+            <% when "in_progress" %>
+              <i class="icofont-wall-clock"></i>
+            <% else %>
+              <i class="icofont-check-circled"></i>
+            <% end %>
+            <%= order.status.titleize %>
+          </td>
+          <td><%= order.foods.map{|f|f.name}.join(", ") %></td>
+          <td><%= number_to_currency(order.price, :unit => "$") %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+  <% else %>
+    <h2>Сurrently no completed orders...</h2>
+  <% end %>

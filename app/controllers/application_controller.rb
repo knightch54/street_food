@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_staff
+  before_action :build_shopping_cart
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def disable_header
@@ -26,13 +28,6 @@ class ApplicationController < ActionController::Base
     render file: File.join(Rails.root, 'public', "404.html"), status: :not_found
   end
 
-  private
-
-  def user_not_authorized
-    flash[:warning] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
-  end
-
   protected
 
   def configure_permitted_parameters
@@ -47,6 +42,38 @@ class ApplicationController < ActionController::Base
   def admin_only
     unless current_user.admin?
       redirect_to root_path, :alert => "Access denied."
+    end
+  end
+
+  def set_staff
+    @user_logged_in_and_is_staff = user_signed_in? && !current_user.client? 
+  end
+
+  private
+
+  def build_shopping_cart
+    @shopping_cart = session[:shopping_cart] ||= {}
+  end
+
+  def user_not_authorized
+    flash[:warning] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
+
+  def after_sign_in_path_for(resource)
+    path_by_role
+  end
+
+  def path_by_role
+    case current_user.role
+    when "chef"
+      orders_path
+    when "manager"
+      ingredients_path
+    when "admin"
+      users_path
+    else
+      root_path
     end
   end
 

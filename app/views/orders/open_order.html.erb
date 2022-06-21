@@ -3,11 +3,17 @@
     <div class="row align-items-center">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg 12 col-xl-12">
         <div class="special-content text-center">
-          <h2>
-            We have received your order! 
-            <span>Now just wait for it to be ready!</span>
-          </h2>
-          price: <%= @order.price %>
+          <h2 class="mb-2">Thank you for your order!</h2>
+          <h3 class="mb-5">
+            Your order number is #<%= @order.id %><br>
+            <strong class="w-color">We'll let you know as soon as it's ready!</strong><br>
+            <small>Believe me, it will be delicious.</small>
+          </h3>
+          <%= render partial: "order_detail", locals: {order: @order} %>
+          <br>
+          <div>
+            <h4 class="mb-5">Total: <b><%= number_to_currency(@order.price, :unit => "$") %></b></h4>
+          </div>
         </div>
       </div>
     </div>

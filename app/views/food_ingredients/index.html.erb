@@ -1,0 +1,43 @@
+<div class="special-section">
+  <div class="container">
+<p id="notice"><%= notice %></p>
+
+<h1>Food Ingredients</h1>
+
+<div class="nested-menu">
+  <% Food.all.each do |food| %>
+    <span>
+      <%= link_to food.name, food_food_ingredients_path(food) %>
+    </span>
+  <% end %>
+  <span>
+    <%= link_to "All", food_ingredients_path %>
+  </span>
+</div>
+
+<table class="table table-striped table-hover">
+  <thead class="table-orange">
+    <tr>
+      <th>Ingredient</th>
+      <th>Food</th>
+      <th colspan="3" class="text-end">Settings</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @food_ingredients.each do |food_ingredient| %>
+      <tr>
+        <td><%= food_ingredient.food.name %></td>
+        <td><%= food_ingredient.ingredient.name %></td>
+        <td colspan="3" class="text-end">
+          <%= link_to 'Show', food_ingredient %>
+          <%= link_to 'Edit', edit_food_ingredient_path(food_ingredient) %>
+          <%= link_to 'Destroy', food_ingredient, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Food Ingredient', new_food_ingredient_path, class: "btn order-btn" %>
+  </div>
+</div>
